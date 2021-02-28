@@ -15,7 +15,6 @@ namespace GrafPack
             InitializeComponent();
         }
 
-
         private void YesButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -24,7 +23,6 @@ namespace GrafPack
         private void NoButton_Click(object sender, EventArgs e)
         {
             this.Close();
-
         }
     }
 }

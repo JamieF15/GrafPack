@@ -14,3 +14,4 @@ C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.dll
 C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.pdb
 C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.genruntimeconfig.cache
 C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.ExitPopUpForm.resources
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.ShapeCreationForm.resources

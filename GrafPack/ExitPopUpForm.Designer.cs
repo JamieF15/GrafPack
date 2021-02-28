@@ -73,8 +73,10 @@ namespace GrafPack
             this.Controls.Add(this.label1);
             this.Controls.Add(this.NoButton);
             this.Controls.Add(this.YesButton);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ExitPopUpForm";
-            this.Text = "ExitPopUpForm";
+            this.Text = "Exit Application";
             this.ResumeLayout(false);
             this.PerformLayout();
 
