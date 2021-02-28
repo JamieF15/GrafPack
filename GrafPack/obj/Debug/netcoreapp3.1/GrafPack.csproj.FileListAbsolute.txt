@@ -1,0 +1,15 @@
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.csprojAssemblyReference.cache
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.Form1.resources
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.csproj.GenerateResource.cache
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.AssemblyInfo.cs
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\GrafPack\GrafPack\bin\Debug\netcoreapp3.1\GrafPack.exe
+C:\Users\User\Desktop\GrafPack\GrafPack\bin\Debug\netcoreapp3.1\GrafPack.deps.json
+C:\Users\User\Desktop\GrafPack\GrafPack\bin\Debug\netcoreapp3.1\GrafPack.runtimeconfig.json
+C:\Users\User\Desktop\GrafPack\GrafPack\bin\Debug\netcoreapp3.1\GrafPack.runtimeconfig.dev.json
+C:\Users\User\Desktop\GrafPack\GrafPack\bin\Debug\netcoreapp3.1\GrafPack.dll
+C:\Users\User\Desktop\GrafPack\GrafPack\bin\Debug\netcoreapp3.1\GrafPack.pdb
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.dll
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.pdb
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.genruntimeconfig.cache
