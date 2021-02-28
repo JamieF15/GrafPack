@@ -15,15 +15,23 @@ namespace GrafPack
         public Form1()
         {
             InitializeComponent();
-            this.Width = 500;
-            this.Height = 500;
-            this.BackColor = Color.White;
 
+            this.BackColor = Color.White;
+            this.Height = 500;
+            this.Width = 815;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+
+
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            ExitPopUpForm exitPopUpForm = new ExitPopUpForm();
+            exitPopUpForm.Show();
         }
     }
 }
