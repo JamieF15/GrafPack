@@ -39,7 +39,7 @@ namespace GrafPack
             // 
             // TriangleButton
             // 
-            this.TriangleButton.Location = new System.Drawing.Point(51, 103);
+            this.TriangleButton.Location = new System.Drawing.Point(22, 99);
             this.TriangleButton.Name = "TriangleButton";
             this.TriangleButton.Size = new System.Drawing.Size(162, 32);
             this.TriangleButton.TabIndex = 3;
@@ -48,7 +48,7 @@ namespace GrafPack
             // 
             // SquareButton
             // 
-            this.SquareButton.Location = new System.Drawing.Point(51, 65);
+            this.SquareButton.Location = new System.Drawing.Point(22, 61);
             this.SquareButton.Name = "SquareButton";
             this.SquareButton.Size = new System.Drawing.Size(162, 32);
             this.SquareButton.TabIndex = 2;
@@ -58,7 +58,7 @@ namespace GrafPack
             // 
             // CircleButton
             // 
-            this.CircleButton.Location = new System.Drawing.Point(51, 27);
+            this.CircleButton.Location = new System.Drawing.Point(22, 23);
             this.CircleButton.Name = "CircleButton";
             this.CircleButton.Size = new System.Drawing.Size(162, 32);
             this.CircleButton.TabIndex = 1;
@@ -67,7 +67,7 @@ namespace GrafPack
             // 
             // ExitButton
             // 
-            this.ExitButton.Location = new System.Drawing.Point(51, 163);
+            this.ExitButton.Location = new System.Drawing.Point(22, 159);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(162, 32);
             this.ExitButton.TabIndex = 4;
@@ -77,7 +77,7 @@ namespace GrafPack
             // 
             // ChooseColourButton
             // 
-            this.ChooseColourButton.Location = new System.Drawing.Point(239, 65);
+            this.ChooseColourButton.Location = new System.Drawing.Point(203, 61);
             this.ChooseColourButton.Name = "ChooseColourButton";
             this.ChooseColourButton.Size = new System.Drawing.Size(122, 70);
             this.ChooseColourButton.TabIndex = 5;
@@ -89,7 +89,7 @@ namespace GrafPack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(380, 207);
+            this.ClientSize = new System.Drawing.Size(351, 207);
             this.Controls.Add(this.ChooseColourButton);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.CircleButton);

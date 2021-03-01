@@ -17,7 +17,17 @@ namespace GrafPack
 
         public void Draw(Graphics g, Pen p)
         {
+            double diffX, diffY, xMid, yMid;
 
+            diffX = startCorner.X - endCorner.X;
+            diffY = startCorner.Y - endCorner.Y;
+            xMid = (startCorner.X + endCorner.X) / 2;
+            yMid = (startCorner.Y + endCorner.Y) / 2;
+
+            g.DrawLine(p, (int)startCorner.X, (int)startCorner.Y, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2));
+            g.DrawLine(p, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2), (int)endCorner.X, endCorner.Y);
+            g.DrawLine(p, (int)endCorner.X, (int)endCorner.Y, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2));
+            g.DrawLine(p, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int) startCorner.X, (int) startCorner.Y);
         }
     }
 }

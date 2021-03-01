@@ -29,7 +29,6 @@ namespace GrafPack
         /// </summary>
         private void InitializeComponent()
         {
-            this.CanvasPanel = new System.Windows.Forms.Panel();
             this.ExitButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.TransformButton = new System.Windows.Forms.Button();
@@ -39,17 +38,6 @@ namespace GrafPack
             this.CanvasPan = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // CanvasPanel
-            // 
-            this.CanvasPanel.AutoSize = true;
-            this.CanvasPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.CanvasPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CanvasPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.CanvasPanel.Location = new System.Drawing.Point(0, 0);
-            this.CanvasPanel.Name = "CanvasPanel";
-            this.CanvasPanel.Size = new System.Drawing.Size(669, 2);
-            this.CanvasPanel.TabIndex = 2;
             // 
             // ExitButton
             // 
@@ -122,9 +110,9 @@ namespace GrafPack
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CanvasPan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CanvasPan.Location = new System.Drawing.Point(20, 46);
+            this.CanvasPan.Location = new System.Drawing.Point(0, 46);
             this.CanvasPan.Name = "CanvasPan";
-            this.CanvasPan.Size = new System.Drawing.Size(629, 392);
+            this.CanvasPan.Size = new System.Drawing.Size(669, 403);
             this.CanvasPan.TabIndex = 6;
             this.CanvasPan.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CanvasPan_MouseDown);
             this.CanvasPan.MouseUp += new System.Windows.Forms.MouseEventHandler(this.CanvasPan_MouseUp);
@@ -137,19 +125,16 @@ namespace GrafPack
             this.ClientSize = new System.Drawing.Size(669, 450);
             this.Controls.Add(this.CanvasPan);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.CanvasPanel);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Shape Maker 4000";
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Panel CanvasPanel;
         private System.Windows.Forms.Button ExitButton;
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.Button TransformButton;

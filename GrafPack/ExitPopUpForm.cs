@@ -13,6 +13,7 @@ namespace GrafPack
         public ExitPopUpForm()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         private void YesButton_Click(object sender, EventArgs e)

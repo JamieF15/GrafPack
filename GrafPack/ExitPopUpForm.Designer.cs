@@ -59,11 +59,12 @@ namespace GrafPack
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(58, 33);
+            this.label1.Location = new System.Drawing.Point(56, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(197, 15);
             this.label1.TabIndex = 4;
             this.label1.Text = "Do you want to exit the application?";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ExitPopUpForm
             // 

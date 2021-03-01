@@ -11,11 +11,13 @@ namespace GrafPack
     public partial class ShapeCreationForm : Form
     {
         bool colourChosen = false;
+
         public static Color chosenColour; 
 
         public ShapeCreationForm()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
@@ -33,9 +35,8 @@ namespace GrafPack
             }
             else
             {
-                MessageBox.Show("Choose a color for the shape");
+                MessageBox.Show("Choose a colour for the shape.");
             }
-
         }
 
         private void ChooseColourButton_Click(object sender, EventArgs e)
