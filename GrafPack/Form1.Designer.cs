@@ -46,7 +46,7 @@ namespace GrafPack
             this.ExitButton.Location = new System.Drawing.Point(556, 8);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(93, 32);
-            this.ExitButton.TabIndex = 1;
+            this.ExitButton.TabIndex = 4;
             this.ExitButton.Text = "Exit";
             this.ExitButton.UseVisualStyleBackColor = true;
             this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
@@ -57,7 +57,7 @@ namespace GrafPack
             this.DeleteButton.Location = new System.Drawing.Point(422, 8);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(128, 32);
-            this.DeleteButton.TabIndex = 2;
+            this.DeleteButton.TabIndex = 3;
             this.DeleteButton.Text = "Delete";
             this.DeleteButton.UseVisualStyleBackColor = true;
             // 
@@ -67,7 +67,7 @@ namespace GrafPack
             this.TransformButton.Location = new System.Drawing.Point(288, 8);
             this.TransformButton.Name = "TransformButton";
             this.TransformButton.Size = new System.Drawing.Size(128, 32);
-            this.TransformButton.TabIndex = 4;
+            this.TransformButton.TabIndex = 2;
             this.TransformButton.Text = "Transform";
             this.TransformButton.UseVisualStyleBackColor = true;
             // 
@@ -88,7 +88,7 @@ namespace GrafPack
             this.SelectButton.Location = new System.Drawing.Point(154, 8);
             this.SelectButton.Name = "SelectButton";
             this.SelectButton.Size = new System.Drawing.Size(128, 32);
-            this.SelectButton.TabIndex = 3;
+            this.SelectButton.TabIndex = 1;
             this.SelectButton.Text = "Select";
             this.SelectButton.UseVisualStyleBackColor = true;
             // 

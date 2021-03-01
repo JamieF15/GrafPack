@@ -76,15 +76,10 @@ namespace GrafPack
         private void CanvasPan_MouseDown(object sender, MouseEventArgs e)
         {
             bool drawTemplate = true;
+
             if (e.Button == MouseButtons.Left && CreateSquare == true)
             {
                 startPoint = new Point(e.X, e.Y);
-
-                while (!drawTemplate)
-                {
-                    endPoint = new Point(e.X, e.Y);
-                    
-                }
             }
         }
 
