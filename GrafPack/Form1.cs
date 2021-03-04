@@ -8,11 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace GrafPack
 {
     public partial class Form1 : Form
     {
-        public static LinkedList<Shape> shapes = new LinkedList<Shape>();
+
+        public static List<Square> shapes = new List<Square>();
 
         //these attributes determine which shape to make, which is decided in the create submenu
         public static bool CreateSquare { get; set; }
@@ -75,8 +77,6 @@ namespace GrafPack
         /// <param name="e"></param>
         private void CanvasPan_MouseDown(object sender, MouseEventArgs e)
         {
-            bool drawTemplate = true;
-
             if (e.Button == MouseButtons.Left && CreateSquare == true)
             {
                 startPoint = new Point(e.X, e.Y);
@@ -95,14 +95,41 @@ namespace GrafPack
             if (e.Button == MouseButtons.Left && CreateSquare == true)
             {
                 endPoint = new Point(e.X, e.Y);
-                p = new Pen(ShapeCreationForm.chosenColour, 3);
-                Square s = new Square(startPoint, endPoint);
+                p = new Pen(ShapeCreationForm.chosenColour);
+                Square s = new Square(startPoint, endPoint, p.Color);
                 s.Draw(g, p);
                 p.Dispose();
                 CreateSquare = false;
 
-                shapes.AddLast(s);
+                shapes.Add(s);
 
+            }
+        }
+
+        private void CanvasPan_MouseMove(object sender, MouseEventArgs e)
+        {
+            using Graphics g = CanvasPan.CreateGraphics();
+
+            if (e.Button == MouseButtons.Left && CreateSquare == true)
+            {
+                endPoint = new Point(e.X, e.Y);
+                p = new Pen(ShapeCreationForm.chosenColour);
+                Square s = new Square(startPoint, endPoint, p.Color);
+
+                CanvasPan.Refresh();
+                RedrawAllShapes();
+                s.Draw(g, p);
+            }
+        }
+
+        void RedrawAllShapes()
+        {
+            using Graphics g = CanvasPan.CreateGraphics();
+            Pen PenForEachShape;
+            for (int i = 0; i < shapes.Count; i++)
+            {
+                PenForEachShape = new Pen(shapes[i].GetColor());
+                shapes[i].Draw(g, PenForEachShape);
             }
         }
     }
