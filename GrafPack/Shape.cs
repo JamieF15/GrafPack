@@ -7,7 +7,17 @@ namespace GrafPack
 {
     public abstract class Shape
     {
-        public enum Shapes { Square, circle, triangle };
+        //represnets the colour of hte shape
+        public Color colour;
+
+        /// <summary>
+        /// Returns the colour of the shape
+        /// </summary>
+        /// <returns></returns>
+        public Color GetColor()
+        {
+            return this.colour;
+        }
 
         public void HighlightShape()
         {
@@ -15,14 +25,6 @@ namespace GrafPack
 
             Pen dashedPen = new Pen(Color.Black);
             dashedPen.DashPattern = dashValues;
-        }
-
-        public void Draw(string shape)
-        {
-            if (shape == Shapes.Square.ToString())
-            {
-
-            }
         }
     }
 }

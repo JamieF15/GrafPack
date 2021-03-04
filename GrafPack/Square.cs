@@ -8,15 +8,20 @@ namespace GrafPack
     public class Square : Shape
     {
         Point startCorner, endCorner;
-        Color color;
 
-        public Square(Point _startCorner, Point _endCorner, Color _color)
+        public Square(Point _startCorner, Point _endCorner, Color _colour)
         {
             startCorner = _startCorner;
             endCorner = _endCorner;
-            color = _color;
+            colour = _colour;
         }
 
+
+        /// <summary>
+        /// Calculates the corners of a square based on 2 oppsoite corners
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="p"></param>
         public void Draw(Graphics g, Pen p)
         {
             double diffX, diffY, xMid, yMid;
@@ -30,11 +35,6 @@ namespace GrafPack
             g.DrawLine(p, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2), (int)endCorner.X, endCorner.Y);
             g.DrawLine(p, (int)endCorner.X, (int)endCorner.Y, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2));
             g.DrawLine(p, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int) startCorner.X, (int) startCorner.Y);
-        }
-
-        public Color GetColor()
-        {
-            return this.color;
         }
     }
 }

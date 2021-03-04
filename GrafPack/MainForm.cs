@@ -11,10 +11,9 @@ using System.Windows.Forms;
 
 namespace GrafPack
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-
-        public static List<Square> shapes = new List<Square>();
+        public static List<Shape> shapes = new List<Shape>();
 
         //these attributes determine which shape to make, which is decided in the create submenu
         public static bool CreateSquare { get; set; }
@@ -29,29 +28,41 @@ namespace GrafPack
         Point startPoint;
         //and and the end point, which is assigned when the mouse is released.
         Point endPoint;
+
         Pen p;
 
+        DoubleBufferedPanel Canvas;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             this.BackColor = Color.White;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            CreateCanvas();
         }
 
+
         /// <summary>
-        /// allows for painting on the canvas
+        /// Creates a double buffered Panel to draw on
         /// </summary>
-        /// <param name="e"></param>
-        protected override void OnPaint(PaintEventArgs e)
+        void CreateCanvas()
         {
-            Graphics g = e.Graphics;
+            Canvas = new DoubleBufferedPanel();
+            Canvas.BackColor = Color.White;
+            Canvas.Location = new Point(2, 70);
+            Canvas.Size = new Size(this.Width - 17, this.Height);
+            this.Controls.Add(Canvas);
+            Canvas.BorderStyle = BorderStyle.FixedSingle;
+
+            Canvas.MouseDown += new MouseEventHandler(this.CanvasMouseDown);
+            Canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.CanvasMouseUp);
+            Canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.CanvasMouseMove);
         }
 
         /// <summary>
+        /// <param name="sender"></
         /// click event for the exit button
-        /// </summary>
-        /// <param name="sender"></param>
+        /// </summary>param>
         /// <param name="e"></param>
         private void ExitButton_Click(object sender, EventArgs e)
         {
@@ -75,7 +86,7 @@ namespace GrafPack
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CanvasPan_MouseDown(object sender, MouseEventArgs e)
+        private void CanvasMouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left && CreateSquare == true)
             {
@@ -88,9 +99,9 @@ namespace GrafPack
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CanvasPan_MouseUp(object sender, MouseEventArgs e)
+        private void CanvasMouseUp(object sender, MouseEventArgs e)
         {
-            using Graphics g = CanvasPan.CreateGraphics();
+            using Graphics g = Canvas.CreateGraphics();
 
             if (e.Button == MouseButtons.Left && CreateSquare == true)
             {
@@ -102,13 +113,17 @@ namespace GrafPack
                 CreateSquare = false;
 
                 shapes.Add(s);
-
             }
         }
 
-        private void CanvasPan_MouseMove(object sender, MouseEventArgs e)
+        /// <summary>
+        /// Triggers on mouse move in the panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanvasMouseMove(object sender, MouseEventArgs e)
         {
-            using Graphics g = CanvasPan.CreateGraphics();
+             Graphics g = Canvas.CreateGraphics();
 
             if (e.Button == MouseButtons.Left && CreateSquare == true)
             {
@@ -116,20 +131,25 @@ namespace GrafPack
                 p = new Pen(ShapeCreationForm.chosenColour);
                 Square s = new Square(startPoint, endPoint, p.Color);
 
-                CanvasPan.Refresh();
+                Canvas.Refresh();
                 RedrawAllShapes();
                 s.Draw(g, p);
             }
         }
 
+        /// <summary>
+        /// On mouse move, all shapes are to be redrawn to preserve them and update the template for the shape being created
+        /// </summary>
         void RedrawAllShapes()
         {
-            using Graphics g = CanvasPan.CreateGraphics();
+            using Graphics g = Canvas.CreateGraphics();
+
             Pen PenForEachShape;
-            for (int i = 0; i < shapes.Count; i++)
+           
+            foreach (Square square in shapes)
             {
-                PenForEachShape = new Pen(shapes[i].GetColor());
-                shapes[i].Draw(g, PenForEachShape);
+                PenForEachShape = new Pen(square.GetColor());
+                square.Draw(g, PenForEachShape);
             }
         }
     }

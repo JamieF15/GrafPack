@@ -1,7 +1,7 @@
 ﻿
 namespace GrafPack
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -43,9 +43,9 @@ namespace GrafPack
             // 
             this.ExitButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ExitButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ExitButton.Location = new System.Drawing.Point(556, 9);
+            this.ExitButton.Location = new System.Drawing.Point(558, 9);
             this.ExitButton.Name = "ExitButton";
-            this.ExitButton.Size = new System.Drawing.Size(93, 32);
+            this.ExitButton.Size = new System.Drawing.Size(101, 32);
             this.ExitButton.TabIndex = 4;
             this.ExitButton.Text = "Exit";
             this.ExitButton.UseVisualStyleBackColor = true;
@@ -54,7 +54,7 @@ namespace GrafPack
             // DeleteButton
             // 
             this.DeleteButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.DeleteButton.Location = new System.Drawing.Point(422, 9);
+            this.DeleteButton.Location = new System.Drawing.Point(424, 9);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(128, 32);
             this.DeleteButton.TabIndex = 3;
@@ -64,7 +64,7 @@ namespace GrafPack
             // TransformButton
             // 
             this.TransformButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.TransformButton.Location = new System.Drawing.Point(288, 9);
+            this.TransformButton.Location = new System.Drawing.Point(290, 9);
             this.TransformButton.Name = "TransformButton";
             this.TransformButton.Size = new System.Drawing.Size(128, 32);
             this.TransformButton.TabIndex = 2;
@@ -74,7 +74,7 @@ namespace GrafPack
             // CreateButton
             // 
             this.CreateButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.CreateButton.Location = new System.Drawing.Point(20, 9);
+            this.CreateButton.Location = new System.Drawing.Point(22, 9);
             this.CreateButton.Name = "CreateButton";
             this.CreateButton.Size = new System.Drawing.Size(128, 32);
             this.CreateButton.TabIndex = 0;
@@ -85,7 +85,7 @@ namespace GrafPack
             // SelectButton
             // 
             this.SelectButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.SelectButton.Location = new System.Drawing.Point(154, 9);
+            this.SelectButton.Location = new System.Drawing.Point(156, 9);
             this.SelectButton.Name = "SelectButton";
             this.SelectButton.Size = new System.Drawing.Size(128, 32);
             this.SelectButton.TabIndex = 1;
@@ -101,7 +101,7 @@ namespace GrafPack
             this.panel1.Controls.Add(this.DeleteButton);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(669, 64);
+            this.panel1.Size = new System.Drawing.Size(673, 64);
             this.panel1.TabIndex = 5;
             // 
             // CanvasPan
@@ -114,9 +114,7 @@ namespace GrafPack
             this.CanvasPan.Name = "CanvasPan";
             this.CanvasPan.Size = new System.Drawing.Size(693, 418);
             this.CanvasPan.TabIndex = 6;
-            this.CanvasPan.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CanvasPan_MouseDown);
-            this.CanvasPan.MouseMove += new System.Windows.Forms.MouseEventHandler(this.CanvasPan_MouseMove);
-            this.CanvasPan.MouseUp += new System.Windows.Forms.MouseEventHandler(this.CanvasPan_MouseUp);
+            this.CanvasPan.Visible = false;
             // 
             // Form1
             // 

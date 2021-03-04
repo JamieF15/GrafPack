@@ -29,7 +29,7 @@ namespace GrafPack
         {
             if (colourChosen == true)
             {
-                Form1.CreateSquare = true;
+                MainForm.CreateSquare = true;
                 colourChosen = false;
                 this.Close();
             }
