@@ -9,6 +9,8 @@ namespace GrafPack
     {
         //represnets the colour of hte shape
         public Color colour;
+        public string type;
+        
 
         /// <summary>
         /// Returns the colour of the shape

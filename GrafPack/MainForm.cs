@@ -1,38 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
 
 namespace GrafPack
 {
     public partial class MainForm : Form
     {
+        #region Attributes, Objects, & Variables
         public static List<Shape> shapes = new List<Shape>();
-
-        //these attributes determine which shape to make, which is decided in the create submenu
         public static bool CreateSquare { get; set; }
         public static bool CreateTriangle { get; set; }
         //https://math.stackexchange.com/questions/543961/determine-third-point-of-triangle-when-two-points-and-all-sides-are-known
-
         public static bool CreateCircle { get; set; }
-
         public static bool SelectShape { get; set; }
-
-        //each shape will be made based on the start point, whcih will be assigned when the mouse goes down
         Point startPoint;
-        //and and the end point, which is assigned when the mouse is released.
         Point endPoint;
-
         Pen p;
-
         DoubleBufferedPanel Canvas;
+        #endregion
 
+        #region Methods
         public MainForm()
         {
             InitializeComponent();
@@ -40,7 +28,6 @@ namespace GrafPack
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             CreateCanvas();
         }
-
 
         /// <summary>
         /// Creates a double buffered Panel to draw on
@@ -94,6 +81,7 @@ namespace GrafPack
             }
         }
 
+
         /// <summary>
         /// mouse up even for the canvas
         /// </summary>
@@ -107,7 +95,7 @@ namespace GrafPack
             {
                 endPoint = new Point(e.X, e.Y);
                 p = new Pen(ShapeCreationForm.chosenColour);
-                Square s = new Square(startPoint, endPoint, p.Color);
+                Square s = new Square(startPoint, endPoint, p.Color, "Square");
                 s.Draw(g, p);
                 p.Dispose();
                 CreateSquare = false;
@@ -128,8 +116,8 @@ namespace GrafPack
             if (e.Button == MouseButtons.Left && CreateSquare == true)
             {
                 endPoint = new Point(e.X, e.Y);
-                p = new Pen(ShapeCreationForm.chosenColour);
-                Square s = new Square(startPoint, endPoint, p.Color);
+                p = new Pen(ShapeCreationForm.chosenColour, 3);
+                Square s = new Square(startPoint, endPoint, p.Color, "Square");
 
                 Canvas.Refresh();
                 RedrawAllShapes();
@@ -150,7 +138,15 @@ namespace GrafPack
             {
                 PenForEachShape = new Pen(square.GetColor());
                 square.Draw(g, PenForEachShape);
+                PenForEachShape.Dispose();
             }
         }
+
+        private void SelectButton_Click(object sender, EventArgs e)
+        {
+            ShapeSelectionForm shapeSelectionForm = new ShapeSelectionForm();
+            shapeSelectionForm.Show();
+        }
+        #endregion
     }
 }

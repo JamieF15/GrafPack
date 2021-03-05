@@ -91,6 +91,7 @@ namespace GrafPack
             this.SelectButton.TabIndex = 1;
             this.SelectButton.Text = "Select";
             this.SelectButton.UseVisualStyleBackColor = true;
+            this.SelectButton.Click += new System.EventHandler(this.SelectButton_Click);
             // 
             // panel1
             // 
@@ -116,7 +117,7 @@ namespace GrafPack
             this.CanvasPan.TabIndex = 6;
             this.CanvasPan.Visible = false;
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -127,7 +128,7 @@ namespace GrafPack
             this.DoubleBuffered = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Shape Maker 4000";
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
