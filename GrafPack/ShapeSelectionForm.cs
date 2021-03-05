@@ -19,34 +19,63 @@ namespace GrafPack
 
         void IterateShapeList()
         {
-            if (MainForm.shapes.Count != 0)
+            using Graphics g = MainForm.Canvas.CreateGraphics();
+
+            Point p1, p2;
+
+            if (MainForm.shapes.Count > -1 && index < MainForm.shapes.Count)
             {
-                MainForm.shapes[index].HighlightShape();
+                if (index >= 0)
+                {
+                    MainForm.shapes[index].HighlightShape(g, p1 = new Point(MainForm.shapes[index].StartPoint.X, MainForm.shapes[index].StartPoint.Y),
+                                                             p2 = new Point(MainForm.shapes[index].EndPoint.X, MainForm.shapes[index].EndPoint.Y));
+                }
             }
         }
 
         private void ShapeSelectionForm_Load(object sender, EventArgs e)
         {
-            shapeInfobx.Text = "No shape selected.";
+
+            if (MainForm.shapes.Count == 0)
+            {
+                shapeInfobx.Text = "There are no shapes to select.";
+            }
+            else
+            {
+                shapeInfobx.Text = "No shape selected.";
+            }
+
+            //test
+
         }
 
         private void Leftbtn_Click(object sender, EventArgs e)
         {
             if (index != -1)
             {
-
-                IterateShapeList();
                 index--;
-                shapeInfobx.Text = index.ToString();
+                MainForm.RedrawAllShapes();
+                IterateShapeList();
+
+                if (index >= 0)
+                {
+                    shapeInfobx.Text = index.ToString();
+                }
+                else
+                {
+                    shapeInfobx.Text = "No shape selected.";
+                }
             }
+         
         }
 
         private void Rightbtn_Click(object sender, EventArgs e)
         {
             if (index != MainForm.shapes.Count - 1)
             {
-                IterateShapeList();
                 index++;
+
+                IterateShapeList();
                 shapeInfobx.Text = index.ToString();
             }
         }

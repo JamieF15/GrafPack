@@ -57,16 +57,17 @@ namespace GrafPack
             // 
             // doubleBufferedPanel1
             // 
-            this.doubleBufferedPanel1.Location = new System.Drawing.Point(97, 71);
+            this.doubleBufferedPanel1.Location = new System.Drawing.Point(97, 57);
             this.doubleBufferedPanel1.Name = "doubleBufferedPanel1";
             this.doubleBufferedPanel1.Size = new System.Drawing.Size(127, 118);
             this.doubleBufferedPanel1.TabIndex = 2;
             // 
             // shapeInfobx
             // 
-            this.shapeInfobx.Location = new System.Drawing.Point(97, 42);
+            this.shapeInfobx.Location = new System.Drawing.Point(97, 28);
             this.shapeInfobx.Multiline = true;
             this.shapeInfobx.Name = "shapeInfobx";
+            this.shapeInfobx.ReadOnly = true;
             this.shapeInfobx.Size = new System.Drawing.Size(127, 23);
             this.shapeInfobx.TabIndex = 3;
             // 

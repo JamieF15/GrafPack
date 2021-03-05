@@ -8,22 +8,16 @@ namespace GrafPack
     public class Square : Shape
     {
         #region Attributes
-        private Point StartCorner { get; set; }
-        private Point EndCorner { get; set; }
+
         #endregion
 
         #region Methods
-        public Square(Point _startCorner, Point _endCorner, Color _colour, string _type)
+        public Square(Point _startCorner, Point _endCorner, Color _colour)
         {
-            StartCorner = _startCorner;
-            EndCorner = _endCorner;
+            StartPoint = _startCorner;
+            EndPoint = _endCorner;
             colour = _colour;
-            type = _type;
-        }
-
-        public void Highlight()
-        {
-
+            type = "Square";
         }
 
         public void Delete()
@@ -40,15 +34,16 @@ namespace GrafPack
         {
             double diffX, diffY, xMid, yMid;
 
-            diffX = StartCorner.X - EndCorner.X;
-            diffY = StartCorner.Y - EndCorner.Y;
-            xMid = (StartCorner.X + EndCorner.X) / 2;
-            yMid = (StartCorner.Y + EndCorner.Y) / 2;
+            diffX = StartPoint.X - EndPoint.X;
+            diffY = StartPoint.Y - EndPoint.Y;
+            xMid = (StartPoint.X + EndPoint.X) / 2;
+            yMid = (StartPoint.Y + EndPoint.Y) / 2;
 
-            g.DrawLine(p, (int)StartCorner.X, (int)StartCorner.Y, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2));
-            g.DrawLine(p, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2), (int)EndCorner.X, EndCorner.Y);
-            g.DrawLine(p, (int)EndCorner.X, (int)EndCorner.Y, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2));
-            g.DrawLine(p, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int)StartCorner.X, (int)StartCorner.Y);
+            g.DrawLine(p, (int)StartPoint.X, (int)StartPoint.Y, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2));
+            g.DrawLine(p, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2), (int)EndPoint.X, EndPoint.Y);
+            g.DrawLine(p, (int)EndPoint.X, (int)EndPoint.Y, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2));
+            g.DrawLine(p, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int)StartPoint.X, (int)StartPoint.Y);
+
         }
         #endregion
     }

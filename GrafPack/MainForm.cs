@@ -17,7 +17,7 @@ namespace GrafPack
         Point startPoint;
         Point endPoint;
         Pen p;
-        DoubleBufferedPanel Canvas;
+        public static DoubleBufferedPanel Canvas;
         #endregion
 
         #region Methods
@@ -95,7 +95,7 @@ namespace GrafPack
             {
                 endPoint = new Point(e.X, e.Y);
                 p = new Pen(ShapeCreationForm.chosenColour);
-                Square s = new Square(startPoint, endPoint, p.Color, "Square");
+                Square s = new Square(startPoint, endPoint, p.Color);
                 s.Draw(g, p);
                 p.Dispose();
                 CreateSquare = false;
@@ -111,13 +111,13 @@ namespace GrafPack
         /// <param name="e"></param>
         private void CanvasMouseMove(object sender, MouseEventArgs e)
         {
-             Graphics g = Canvas.CreateGraphics();
+            Graphics g = Canvas.CreateGraphics();
 
             if (e.Button == MouseButtons.Left && CreateSquare == true)
             {
                 endPoint = new Point(e.X, e.Y);
                 p = new Pen(ShapeCreationForm.chosenColour, 3);
-                Square s = new Square(startPoint, endPoint, p.Color, "Square");
+                Square s = new Square(startPoint, endPoint, p.Color);
 
                 Canvas.Refresh();
                 RedrawAllShapes();
@@ -128,12 +128,12 @@ namespace GrafPack
         /// <summary>
         /// On mouse move, all shapes are to be redrawn to preserve them and update the template for the shape being created
         /// </summary>
-        void RedrawAllShapes()
+        public static void RedrawAllShapes()
         {
             using Graphics g = Canvas.CreateGraphics();
 
             Pen PenForEachShape;
-           
+
             foreach (Square square in shapes)
             {
                 PenForEachShape = new Pen(square.GetColor());
