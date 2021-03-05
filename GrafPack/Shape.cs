@@ -8,9 +8,8 @@ namespace GrafPack
     public abstract class Shape
     {
         //represnets the colour of hte shape
-        public Color colour;
-        public string type;
-
+        public Color ShapeColour { get; set; }
+        public string ShapeType { get; set; }
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
 
@@ -20,18 +19,18 @@ namespace GrafPack
         /// <returns></returns>
         public Color GetColor()
         {
-            return this.colour;
+            return this.ShapeColour;
         }
 
         public void HighlightShape(Graphics g, Point p1, Point p2)
         {
-            float[] dashValues = { 1, 2, 3, 4 };
+            float[] dashValues = { 1, 6};
 
-            Pen dashedPen = new Pen(MainForm.Canvas.BackColor);
+            Pen dashedPen = new Pen(MainForm.Canvas.BackColor, 3);
 
             dashedPen.DashPattern = dashValues;
 
-            if (type == "Square")
+            if (ShapeType == "Square")
             {
                 double diffX, diffY, xMid, yMid;
 

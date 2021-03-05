@@ -16,8 +16,8 @@ namespace GrafPack
         {
             StartPoint = _startCorner;
             EndPoint = _endCorner;
-            colour = _colour;
-            type = "Square";
+            ShapeColour = _colour;
+            ShapeType = "Square";
         }
 
         public void Delete()

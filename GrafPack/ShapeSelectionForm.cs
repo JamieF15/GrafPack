@@ -35,6 +35,7 @@ namespace GrafPack
 
         private void ShapeSelectionForm_Load(object sender, EventArgs e)
         {
+            MainForm.ShapeSelected = false;
 
             if (MainForm.shapes.Count == 0)
             {
@@ -59,24 +60,55 @@ namespace GrafPack
 
                 if (index >= 0)
                 {
-                    shapeInfobx.Text = index.ToString();
+                    shapeInfobx.Text = MainForm.shapes[index].ShapeColour.Name + " " + MainForm.shapes[index].ShapeType + " Selected." + MainForm.ShapeSelected.ToString() ;
+                    MainForm.ShapeSelected = true;
                 }
                 else
                 {
                     shapeInfobx.Text = "No shape selected.";
+                    MainForm.ShapeSelected = false;
                 }
             }
-         
         }
 
         private void Rightbtn_Click(object sender, EventArgs e)
         {
             if (index != MainForm.shapes.Count - 1)
             {
+                MainForm.RedrawAllShapes();
+
                 index++;
 
                 IterateShapeList();
-                shapeInfobx.Text = index.ToString();
+                shapeInfobx.Text = MainForm.shapes[index].ShapeColour.Name  + " " + MainForm.shapes[index].ShapeType + " Selected.";
+                MainForm.ShapeSelected = true;
+            }
+        }
+
+        private void ShapeSelectionForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            MainForm.RedrawAllShapes();
+        }
+
+        private void ExitBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Deletebtn_Click(object sender, EventArgs e)
+        {
+            Pen delPen = new Pen(MainForm.Canvas.BackColor, 3);
+
+            if (MainForm.shapes.Count > 0)
+            {
+                switch (MainForm.shapes[index].ShapeType)
+                {
+                    case "Square":
+
+                        shapeInfobx.Text = "TEST";
+
+                        break;
+                }
             }
         }
     }

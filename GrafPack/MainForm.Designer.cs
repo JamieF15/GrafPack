@@ -30,8 +30,6 @@ namespace GrafPack
         private void InitializeComponent()
         {
             this.ExitButton = new System.Windows.Forms.Button();
-            this.DeleteButton = new System.Windows.Forms.Button();
-            this.TransformButton = new System.Windows.Forms.Button();
             this.CreateButton = new System.Windows.Forms.Button();
             this.SelectButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -43,40 +41,20 @@ namespace GrafPack
             // 
             this.ExitButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ExitButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ExitButton.Location = new System.Drawing.Point(558, 9);
+            this.ExitButton.Location = new System.Drawing.Point(421, 8);
             this.ExitButton.Name = "ExitButton";
-            this.ExitButton.Size = new System.Drawing.Size(101, 32);
+            this.ExitButton.Size = new System.Drawing.Size(180, 32);
             this.ExitButton.TabIndex = 4;
             this.ExitButton.Text = "Exit";
             this.ExitButton.UseVisualStyleBackColor = true;
             this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
-            // DeleteButton
-            // 
-            this.DeleteButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.DeleteButton.Location = new System.Drawing.Point(424, 9);
-            this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(128, 32);
-            this.DeleteButton.TabIndex = 3;
-            this.DeleteButton.Text = "Delete";
-            this.DeleteButton.UseVisualStyleBackColor = true;
-            // 
-            // TransformButton
-            // 
-            this.TransformButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.TransformButton.Location = new System.Drawing.Point(290, 9);
-            this.TransformButton.Name = "TransformButton";
-            this.TransformButton.Size = new System.Drawing.Size(128, 32);
-            this.TransformButton.TabIndex = 2;
-            this.TransformButton.Text = "Transform";
-            this.TransformButton.UseVisualStyleBackColor = true;
-            // 
             // CreateButton
             // 
             this.CreateButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.CreateButton.Location = new System.Drawing.Point(22, 9);
+            this.CreateButton.Location = new System.Drawing.Point(49, 8);
             this.CreateButton.Name = "CreateButton";
-            this.CreateButton.Size = new System.Drawing.Size(128, 32);
+            this.CreateButton.Size = new System.Drawing.Size(180, 32);
             this.CreateButton.TabIndex = 0;
             this.CreateButton.Text = "Create";
             this.CreateButton.UseVisualStyleBackColor = true;
@@ -85,11 +63,11 @@ namespace GrafPack
             // SelectButton
             // 
             this.SelectButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.SelectButton.Location = new System.Drawing.Point(156, 9);
+            this.SelectButton.Location = new System.Drawing.Point(235, 8);
             this.SelectButton.Name = "SelectButton";
-            this.SelectButton.Size = new System.Drawing.Size(128, 32);
+            this.SelectButton.Size = new System.Drawing.Size(180, 32);
             this.SelectButton.TabIndex = 1;
-            this.SelectButton.Text = "Select";
+            this.SelectButton.Text = " Select";
             this.SelectButton.UseVisualStyleBackColor = true;
             this.SelectButton.Click += new System.EventHandler(this.SelectButton_Click);
             // 
@@ -98,11 +76,9 @@ namespace GrafPack
             this.panel1.Controls.Add(this.CreateButton);
             this.panel1.Controls.Add(this.ExitButton);
             this.panel1.Controls.Add(this.SelectButton);
-            this.panel1.Controls.Add(this.TransformButton);
-            this.panel1.Controls.Add(this.DeleteButton);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(673, 64);
+            this.panel1.Size = new System.Drawing.Size(669, 48);
             this.panel1.TabIndex = 5;
             // 
             // CanvasPan
@@ -137,8 +113,6 @@ namespace GrafPack
 
         #endregion
         private System.Windows.Forms.Button ExitButton;
-        private System.Windows.Forms.Button DeleteButton;
-        private System.Windows.Forms.Button TransformButton;
         private System.Windows.Forms.Button CreateButton;
         private System.Windows.Forms.Button SelectButton;
         private System.Windows.Forms.Panel panel1;

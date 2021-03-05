@@ -13,7 +13,7 @@ namespace GrafPack
         public static bool CreateTriangle { get; set; }
         //https://math.stackexchange.com/questions/543961/determine-third-point-of-triangle-when-two-points-and-all-sides-are-known
         public static bool CreateCircle { get; set; }
-        public static bool SelectShape { get; set; }
+        public static bool ShapeSelected { get; set; }
         Point startPoint;
         Point endPoint;
         Pen p;
@@ -36,8 +36,8 @@ namespace GrafPack
         {
             Canvas = new DoubleBufferedPanel();
             Canvas.BackColor = Color.White;
-            Canvas.Location = new Point(2, 70);
-            Canvas.Size = new Size(this.Width - 17, this.Height);
+            Canvas.Location = new Point(2, 60);
+            Canvas.Size = new Size(this.Width, this.Height);
             this.Controls.Add(Canvas);
             Canvas.BorderStyle = BorderStyle.FixedSingle;
 
@@ -136,7 +136,7 @@ namespace GrafPack
 
             foreach (Square square in shapes)
             {
-                PenForEachShape = new Pen(square.GetColor());
+                PenForEachShape = new Pen(square.GetColor(), 3);
                 square.Draw(g, PenForEachShape);
                 PenForEachShape.Dispose();
             }
