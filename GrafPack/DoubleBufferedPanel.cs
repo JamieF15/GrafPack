@@ -7,9 +7,8 @@ namespace GrafPack
         //https://gregback.net/double-buffered-panels-in-c.html
         public DoubleBufferedPanel()
         {
-            this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.AllPaintingInWmPaint |
-                ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.DoubleBuffer |
                 ControlStyles.UserPaint, true);
         }
     }

@@ -21,28 +21,56 @@ namespace GrafPack
         {
             return this.ShapeColour;
         }
-
-        public void HighlightShape(Graphics g, Point p1, Point p2)
+        
+        public void Delete(Graphics g)
         {
-            float[] dashValues = { 1, 6};
+            Pen deletePen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize);
 
-            Pen dashedPen = new Pen(MainForm.Canvas.BackColor, 3);
-
-            dashedPen.DashPattern = dashValues;
-
-            if (ShapeType == "Square")
+            switch (ShapeType)
             {
-                double diffX, diffY, xMid, yMid;
+                case "Square":
 
-                diffX = StartPoint.X - EndPoint.X;
-                diffY = StartPoint.Y - EndPoint.Y;
-                xMid = (StartPoint.X + EndPoint.X) / 2;
-                yMid = (StartPoint.Y + EndPoint.Y) / 2;
+                    double diffX, diffY, xMid, yMid;
 
-                g.DrawLine(dashedPen, (int)StartPoint.X, (int)StartPoint.Y, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2));
-                g.DrawLine(dashedPen, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2), (int)EndPoint.X, EndPoint.Y);
-                g.DrawLine(dashedPen, (int)EndPoint.X, (int)EndPoint.Y, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2));
-                g.DrawLine(dashedPen, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int)StartPoint.X, (int)StartPoint.Y);
+                    diffX = StartPoint.X - EndPoint.X;
+                    diffY = StartPoint.Y - EndPoint.Y;
+                    xMid = (StartPoint.X + EndPoint.X) / 2;
+                    yMid = (StartPoint.Y + EndPoint.Y) / 2;
+
+                    g.DrawLine(deletePen, (int)StartPoint.X, (int)StartPoint.Y, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2));
+                    g.DrawLine(deletePen, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2), (int)EndPoint.X, EndPoint.Y);
+                    g.DrawLine(deletePen, (int)EndPoint.X, (int)EndPoint.Y, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2));
+                    g.DrawLine(deletePen, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int)StartPoint.X, (int)StartPoint.Y);
+                    break;
+            }
+        }
+
+        public void HighlightShape(Graphics g)
+        {
+            float[] dashValues = { 1, 6 };
+
+            Pen dashedPen = new Pen(MainForm.Canvas.BackColor, 3)
+            {
+                DashPattern = dashValues
+            };
+
+            switch (ShapeType)
+            {
+                case "Square":
+
+                    double diffX, diffY, xMid, yMid;
+
+                    diffX = StartPoint.X - EndPoint.X;
+                    diffY = StartPoint.Y - EndPoint.Y;
+                    xMid = (StartPoint.X + EndPoint.X) / 2;
+                    yMid = (StartPoint.Y + EndPoint.Y) / 2;
+
+                    g.DrawLine(dashedPen, (int)StartPoint.X, (int)StartPoint.Y, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2));
+                    g.DrawLine(dashedPen, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2), (int)EndPoint.X, EndPoint.Y);
+                    g.DrawLine(dashedPen, (int)EndPoint.X, (int)EndPoint.Y, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2));
+                    g.DrawLine(dashedPen, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int)StartPoint.X, (int)StartPoint.Y);
+
+                    break;
             }
         }
     }

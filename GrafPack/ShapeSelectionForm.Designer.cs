@@ -63,7 +63,7 @@ namespace GrafPack
             this.shapeInfobx.Multiline = true;
             this.shapeInfobx.Name = "shapeInfobx";
             this.shapeInfobx.ReadOnly = true;
-            this.shapeInfobx.Size = new System.Drawing.Size(182, 27);
+            this.shapeInfobx.Size = new System.Drawing.Size(182, 20);
             this.shapeInfobx.TabIndex = 3;
             this.shapeInfobx.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -100,6 +100,7 @@ namespace GrafPack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(684, 121);
             this.Controls.Add(this.ExitBtn);
             this.Controls.Add(this.button2);

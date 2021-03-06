@@ -7,22 +7,13 @@ namespace GrafPack
 {
     public class Square : Shape
     {
-        #region Attributes
-
-        #endregion
-
         #region Methods
-        public Square(Point _startCorner, Point _endCorner, Color _colour)
+        public Square(Point _startCorner, Point _endCorner, Color _shapeColour)
         {
             StartPoint = _startCorner;
             EndPoint = _endCorner;
-            ShapeColour = _colour;
+            ShapeColour = _shapeColour;
             ShapeType = "Square";
-        }
-
-        public void Delete()
-        {
-
         }
 
         /// <summary>
