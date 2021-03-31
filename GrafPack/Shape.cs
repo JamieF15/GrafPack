@@ -10,8 +10,8 @@ namespace GrafPack
         //represnets the colour of hte shape
         public Color ShapeColour { get; set; }
         public string ShapeType { get; set; }
-        public Point StartPoint { get; set; }
-        public Point EndPoint { get; set; }
+        public Point ShapeStart { get; set; }
+        public Point ShapeEnd { get; set; }
 
         /// <summary>
         /// Returns the colour of the shape
@@ -19,58 +19,116 @@ namespace GrafPack
         /// <returns></returns>
         public Color GetColor()
         {
-            return this.ShapeColour;
+            return ShapeColour;
         }
-        
+
         public void Delete(Graphics g)
         {
             Pen deletePen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize);
 
+            Draw(g, deletePen);
+
+            MainForm.ResetDrawingRegion();
+        }
+
+        public void Draw(Graphics g, Pen p)
+        {
             switch (ShapeType)
             {
                 case "Square":
 
-                    double diffX, diffY, xMid, yMid;
+                    DrawSqaure(g, p);
 
-                    diffX = StartPoint.X - EndPoint.X;
-                    diffY = StartPoint.Y - EndPoint.Y;
-                    xMid = (StartPoint.X + EndPoint.X) / 2;
-                    yMid = (StartPoint.Y + EndPoint.Y) / 2;
+                    break;
 
-                    g.DrawLine(deletePen, (int)StartPoint.X, (int)StartPoint.Y, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2));
-                    g.DrawLine(deletePen, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2), (int)EndPoint.X, EndPoint.Y);
-                    g.DrawLine(deletePen, (int)EndPoint.X, (int)EndPoint.Y, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2));
-                    g.DrawLine(deletePen, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int)StartPoint.X, (int)StartPoint.Y);
+                case "Circle":
+
+                    DrawCircle(g);
+
                     break;
             }
         }
 
+        void PlacePixel(int x, int y)
+        {
+            using Graphics g = MainForm.Canvas.CreateGraphics();
+            Bitmap bm = new Bitmap(1, 1);
+            bm.SetPixel(0, 0, ShapeCreationForm.chosenColour);
+            g.DrawImageUnscaled(bm, x, y);
+        }
+
+        void DrawCircle(int start, int end, int x, int y)
+        {
+            PlacePixel(start + x, end + y);
+            PlacePixel(start - x, end + y);
+            PlacePixel(start + x, end - y);
+            PlacePixel(start - x, end - y);
+            PlacePixel(start + y, end + x);
+            PlacePixel(start - y, end + x);
+            PlacePixel(start + y, end - x);
+            PlacePixel(start - y, end - x);
+        }
+
+        /// <summary>
+        /// Highlights a shape by drawing a dashed line in its position 
+        /// </summary>
+        /// <param name="g"></param>
         public void HighlightShape(Graphics g)
         {
-            float[] dashValues = { 1, 6 };
+            float[] dashValues = { 1, 5 };
 
-            Pen dashedPen = new Pen(MainForm.Canvas.BackColor, 3)
+            Pen dashedPen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize)
             {
                 DashPattern = dashValues
             };
 
-            switch (ShapeType)
+            Draw(g, dashedPen);
+        }
+
+        private void DrawSqaure(Graphics g, Pen p)
+        {
+            double diffX, diffY, xMid, yMid;
+
+            diffX = ShapeStart.X - ShapeEnd.X;
+            diffY = ShapeStart.Y - ShapeEnd.Y;
+            xMid = (ShapeStart.X + ShapeEnd.X) / 2;
+            yMid = (ShapeStart.Y + ShapeEnd.Y) / 2;
+
+            g.DrawLine(p, (int)ShapeStart.X, (int)ShapeStart.Y, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2));
+            g.DrawLine(p, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2), (int)ShapeEnd.X, ShapeEnd.Y);
+            g.DrawLine(p, (int)ShapeEnd.X, (int)ShapeEnd.Y, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2));
+            g.DrawLine(p, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int)ShapeStart.X, (int)ShapeStart.Y);
+        }
+
+        private void DrawCircle(Graphics g)
+        {
+            int radius = 100;
+            int x = 0;
+            int y = radius;
+            int d = 3 - 2 * radius;
+
+          //  DrawCircle(StartPoint.X, StartPoint.Y, x, y);
+
+            while (y >= x)
             {
-                case "Square":
+                // for each pixel we will
+                // draw all eight pixels
 
-                    double diffX, diffY, xMid, yMid;
+                x++;
 
-                    diffX = StartPoint.X - EndPoint.X;
-                    diffY = StartPoint.Y - EndPoint.Y;
-                    xMid = (StartPoint.X + EndPoint.X) / 2;
-                    yMid = (StartPoint.Y + EndPoint.Y) / 2;
+                // check for decision parameter
+                // and correspondingly 
+                // update d, x, y
+                if (d > 0)
+                {
+                    y--;
+                    d = d + 4 * (x - y) + 10;
+                }
+                else
 
-                    g.DrawLine(dashedPen, (int)StartPoint.X, (int)StartPoint.Y, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2));
-                    g.DrawLine(dashedPen, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2), (int)EndPoint.X, EndPoint.Y);
-                    g.DrawLine(dashedPen, (int)EndPoint.X, (int)EndPoint.Y, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2));
-                    g.DrawLine(dashedPen, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int)StartPoint.X, (int)StartPoint.Y);
+                    d = d + 4 * x + 6;
 
-                    break;
+                DrawCircle(ShapeEnd.X, ShapeEnd.Y, x, y);
             }
         }
     }

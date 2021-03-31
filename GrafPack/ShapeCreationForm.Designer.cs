@@ -64,6 +64,7 @@ namespace GrafPack
             this.CircleButton.TabIndex = 1;
             this.CircleButton.Text = "Circle";
             this.CircleButton.UseVisualStyleBackColor = true;
+            this.CircleButton.Click += new System.EventHandler(this.CircleButton_Click);
             // 
             // ExitButton
             // 

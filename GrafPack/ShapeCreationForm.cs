@@ -35,7 +35,7 @@ namespace GrafPack
             }
             else
             {
-                MessageBox.Show("Choose a colour for the shape.");
+                MessageBox.Show("Choose a colour for the shape");
             }
         }
 
@@ -45,6 +45,20 @@ namespace GrafPack
             { 
                 colourChosen = true;
                 chosenColour = colorDialog1.Color;                
+            }
+        }
+
+        private void CircleButton_Click(object sender, EventArgs e)
+        {
+            if (colourChosen == true)
+            {
+                MainForm.CreateCircle = true;
+                colourChosen = false;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Choose a colour for the shape");
             }
         }
     }

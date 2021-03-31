@@ -23,7 +23,7 @@ namespace GrafPack
         void HighlightShapeInList()
         {
             //draws to the canvas of the main form
-            using Graphics g = MainForm.Canvas.CreateGraphics();
+            using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
 
             //if the shape list is not empty and the index is less than the amount of shapes in the list
             if (MainForm.shapes.Count > -1 && index < MainForm.shapes.Count)
@@ -33,6 +33,7 @@ namespace GrafPack
                 {
                     //highlight the shape based on the index
                     MainForm.shapes[index].HighlightShape(g);
+                    MainForm.ResetDrawingRegion();
                 }
             }
         }
@@ -50,14 +51,19 @@ namespace GrafPack
             // if the main form isn't empty, show that there are no shapes to select
             if (MainForm.shapes.Count == 0)
             {
-                shapeInfobx.Text = "There are no shapes to select.";
+                shapeInfobx.Text = "There are no shapes to select";
             }
             else
             {
-                shapeInfobx.Text = "No shape selected.";
+                shapeInfobx.Text = "No shape selected";
             }
         }
 
+        /// <summary>
+        /// Triggers wen the 'left' button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Leftbtn_Click(object sender, EventArgs e)
         {
             //if the index is not set to no shape selected
@@ -72,15 +78,17 @@ namespace GrafPack
                 //highlight the appropriate shape
                 HighlightShapeInList();
 
+                //if the index is greater or equal to 0, allow for a shape to be selected 
                 if (index >= 0)
                 {
                     MainForm.ShapeSelected = true;
 
-                    shapeInfobx.Text = MainForm.shapes[index].ShapeType + " " + (index + 1) + " Selected.";
+                    shapeInfobx.Text = MainForm.shapes[index].ShapeType + " " + (index + 1) + " Selected";
                 }
+                //if the index is less than 0, no shape can be selected
                 else
                 {
-                    shapeInfobx.Text = "No shape selected.";
+                    shapeInfobx.Text = "No shape selected";
                     MainForm.ShapeSelected = false;
                 }
             }
@@ -96,28 +104,47 @@ namespace GrafPack
             //if the index is not equal to the amount of shapes in the list - 1
             if (index != MainForm.shapes.Count - 1)
             {
-                //
+                //set ShapeSelected to true
                 MainForm.ShapeSelected = true;
 
+                //redraw all shapes to visually re-select shapes 
                 MainForm.RedrawAllShapes();
+                
 
+
+                //increase the index 
                 index++;
 
+                //highlight the appropriate shape in the list
                 HighlightShapeInList();
-                shapeInfobx.Text = MainForm.shapes[index].ShapeType + " " + (index + 1) + " Selected.";
+
+                //set the info box to hte appropriate information
+                shapeInfobx.Text = MainForm.shapes[index].ShapeType + " " + (index + 1) + " Selected";
             }
         }
 
+        /// <summary>
+        /// Triggers when the form is closed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShapeSelectionForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            //redraw all shapes on closing of the form to prevent a shape of being selected visually when the window is closed
             MainForm.RedrawAllShapes();
 
             //set index to -1 so no shapes are selected
             index = -1;
         }
 
+        /// <summary>
+        /// Triggers when the 'exit' button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExitBtn_Click(object sender, EventArgs e)
         {
+            //close the window
             this.Close();
         }
 
@@ -129,17 +156,18 @@ namespace GrafPack
         private void Deletebtn_Click(object sender, EventArgs e)
         {
             //draws to the canvas
-            using Graphics g = MainForm.Canvas.CreateGraphics();
+            using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
 
             //if the shape list isn't empty and the index is not 1
             if (MainForm.shapes.Count > 0 && index != -1)
             {
                 MainForm.shapes[index].Delete(g);
                 MainForm.shapes[index] = null;
-                shapeInfobx.Text = "No shape selected";
                 MainForm.shapes.RemoveAt(index);
-                MainForm.RedrawAllShapes();
+                shapeInfobx.Text = "No shape selected";
                 index = -1;
+                MainForm.Canvas.BackgroundImage = MainForm.drawingRegion;
+                MainForm.RedrawAllShapes();
             }
         }
     }
