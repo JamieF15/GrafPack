@@ -91,6 +91,7 @@ namespace GrafPack
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Shape Maker 4000";
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

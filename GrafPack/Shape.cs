@@ -27,6 +27,7 @@ namespace GrafPack
             Pen deletePen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize);
 
             Draw(g, deletePen);
+            MainForm.RedrawAllShapes();
 
             MainForm.ResetDrawingRegion();
         }

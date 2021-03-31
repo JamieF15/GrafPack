@@ -100,6 +100,7 @@ namespace GrafPack
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ShapeCreationForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ShapeCreationForm";
             this.ResumeLayout(false);
 

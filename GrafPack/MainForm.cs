@@ -89,15 +89,13 @@ namespace GrafPack
         }
 
         /// <summary>
-        /// mouse up even for the canvas
+        /// Create the shape when the mouse is released 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CanvasMouseUp(object sender, MouseEventArgs e)
         {
             using Graphics g = Graphics.FromImage(drawingRegion);
-
-            // using Graphics g = Canvas.CreateGraphics();
 
             //set the end point to the position of the mouse
             endPoint = new Point(e.X, e.Y);
@@ -137,7 +135,7 @@ namespace GrafPack
         }
 
         /// <summary>
-        /// Triggers on mouse move in the panel
+        /// Triggers on mouse move in the panel and 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -167,11 +165,14 @@ namespace GrafPack
                 //draw the square to the canvas
                 s.Draw(g, p);
 
+                //set the background of the canvas to the drawing region
                 Canvas.BackgroundImage = drawingRegion;
             }
         }
 
-
+        /// <summary>
+        /// Used to set the bitmap to all white and refresh the canvas 
+        /// </summary>
         public static void ResetDrawingRegion()
         {
             using Graphics g = Graphics.FromImage(drawingRegion);
@@ -187,18 +188,13 @@ namespace GrafPack
         {
             using Graphics g = Graphics.FromImage(drawingRegion);
 
-            Bitmap allImages = new Bitmap(Canvas.Width, Canvas.Height);
-
-            allImages = drawingRegion;
-
             Pen PenForEachShape;
 
             for (int i = 0; i < shapes.Count; i++)
             {
                 PenForEachShape = new Pen(shapes[i].GetColor(), MainForm.PenSize);
-               // shapes[i].Draw(g, PenForEachShape);
+                shapes[i].Draw(g, PenForEachShape);
                 PenForEachShape.Dispose();
-                Canvas.BackgroundImage = allImages;
             }
 
 

@@ -113,6 +113,7 @@ namespace GrafPack
             this.MinimizeBox = false;
             this.Name = "ShapeSelectionForm";
             this.RightToLeftLayout = true;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ShapeSelectionForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ShapeSelectionForm_FormClosed);
             this.Load += new System.EventHandler(this.ShapeSelectionForm_Load);

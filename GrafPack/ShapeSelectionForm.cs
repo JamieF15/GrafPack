@@ -69,11 +69,11 @@ namespace GrafPack
             //if the index is not set to no shape selected
             if (index != -1)
             {
-                //decrement the index
-                index--;
-
                 //redraw all shapes to graphically represent no shape has been selected
                 MainForm.RedrawAllShapes();
+
+                //decrement the index
+                index--;
 
                 //highlight the appropriate shape
                 HighlightShapeInList();
@@ -84,14 +84,20 @@ namespace GrafPack
                     MainForm.ShapeSelected = true;
 
                     shapeInfobx.Text = MainForm.shapes[index].ShapeType + " " + (index + 1) + " Selected";
-                }
+                    //   MainForm.ResetDrawingRegion();
+
+                }           
                 //if the index is less than 0, no shape can be selected
                 else
                 {
                     shapeInfobx.Text = "No shape selected";
+                    MainForm.RedrawAllShapes();
+                    MainForm.ResetDrawingRegion();
                     MainForm.ShapeSelected = false;
                 }
+
             }
+ 
         }
 
         /// <summary>
@@ -110,8 +116,6 @@ namespace GrafPack
                 //redraw all shapes to visually re-select shapes 
                 MainForm.RedrawAllShapes();
                 
-
-
                 //increase the index 
                 index++;
 
@@ -132,6 +136,7 @@ namespace GrafPack
         {
             //redraw all shapes on closing of the form to prevent a shape of being selected visually when the window is closed
             MainForm.RedrawAllShapes();
+            MainForm.ResetDrawingRegion();
 
             //set index to -1 so no shapes are selected
             index = -1;
@@ -161,13 +166,26 @@ namespace GrafPack
             //if the shape list isn't empty and the index is not 1
             if (MainForm.shapes.Count > 0 && index != -1)
             {
+                //delte the shape in the selected index
                 MainForm.shapes[index].Delete(g);
-                MainForm.shapes[index] = null;
+
+                //set the elemment in the array to null
+               // MainForm.shapes[index] = null; potentially dont need
+
+                //remove the shape from the list
                 MainForm.shapes.RemoveAt(index);
+
+                //change the selected shape indication to none
                 shapeInfobx.Text = "No shape selected";
+
+                //set the index to -1 (no shape selected)
                 index = -1;
-                MainForm.Canvas.BackgroundImage = MainForm.drawingRegion;
+
+                //redraw all shapes
                 MainForm.RedrawAllShapes();
+                
+                //reset the drawing region bitmap
+                MainForm.ResetDrawingRegion();
             }
         }
     }
