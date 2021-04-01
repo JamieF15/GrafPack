@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace GrafPack
@@ -25,15 +21,41 @@ namespace GrafPack
             //draws to the canvas of the main form
             using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
 
+            float[] dashValues = { 1, 5 };
+
+            Pen dashedPen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize)
+            {
+                DashPattern = dashValues
+            };
+
             //if the shape list is not empty and the index is less than the amount of shapes in the list
             if (MainForm.shapes.Count > -1 && index < MainForm.shapes.Count)
             {
                 //if the index is greater than 0, highlight the appropriate shape
                 if (index >= 0)
                 {
-                    //highlight the shape based on the index
-                    MainForm.shapes[index].HighlightShape(g);
-                    MainForm.ResetDrawingRegion();
+
+                    switch (MainForm.shapes[index].ShapeType)
+                    {
+                        case "Square":
+                            //highlight the shape based on the index
+                            MainForm.shapes[index].DrawSqaure(g, dashedPen);
+                            MainForm.ResetDrawingRegion();
+                            break;
+
+                        case "Circle":
+
+                            MainForm.shapes[index].HighlightCircle(MainForm.shapes[index].GetColor());
+                            MainForm.ResetDrawingRegion();
+
+                            break;
+
+                        case "Triangle":
+
+                            break;
+                    }
+               
+
                 }
             }
         }
@@ -70,7 +92,7 @@ namespace GrafPack
             if (index != -1)
             {
                 //redraw all shapes to graphically represent no shape has been selected
-                MainForm.RedrawAllShapes();
+              //  MainForm.RedrawAllShapes();
 
                 //decrement the index
                 index--;
@@ -91,7 +113,7 @@ namespace GrafPack
                 else
                 {
                     shapeInfobx.Text = "No shape selected";
-                    MainForm.RedrawAllShapes();
+                   // MainForm.RedrawAllShapes();
                     MainForm.ResetDrawingRegion();
                     MainForm.ShapeSelected = false;
                 }
@@ -107,6 +129,8 @@ namespace GrafPack
         /// <param name="e"></param>
         private void Rightbtn_Click(object sender, EventArgs e)
         {
+            using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
+
             //if the index is not equal to the amount of shapes in the list - 1
             if (index != MainForm.shapes.Count - 1)
             {
@@ -114,7 +138,7 @@ namespace GrafPack
                 MainForm.ShapeSelected = true;
 
                 //redraw all shapes to visually re-select shapes 
-                MainForm.RedrawAllShapes();
+               // MainForm.RedrawAllShapes();
                 
                 //increase the index 
                 index++;
@@ -135,7 +159,6 @@ namespace GrafPack
         private void ShapeSelectionForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             //redraw all shapes on closing of the form to prevent a shape of being selected visually when the window is closed
-            MainForm.RedrawAllShapes();
             MainForm.ResetDrawingRegion();
 
             //set index to -1 so no shapes are selected
@@ -163,14 +186,32 @@ namespace GrafPack
             //draws to the canvas
             using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
 
+            Pen deletePen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize);
+
             //if the shape list isn't empty and the index is not 1
             if (MainForm.shapes.Count > 0 && index != -1)
             {
                 //delte the shape in the selected index
                 MainForm.shapes[index].Delete(g);
 
-                //set the elemment in the array to null
-               // MainForm.shapes[index] = null; potentially dont need
+                switch (MainForm.shapes[index].ShapeType)
+                {
+                    case "Square":
+                        MainForm.shapes[index].Draw(g, deletePen);
+                        break;
+
+
+                    case "Circle":
+                        MainForm.shapes[index].DeleteCircle();
+                        break;
+
+                    case "Triangle":
+
+                        break;
+                        
+                }
+
+                MainForm.allShapes = (Bitmap) MainForm.drawingRegion.Clone();
 
                 //remove the shape from the list
                 MainForm.shapes.RemoveAt(index);
@@ -181,9 +222,6 @@ namespace GrafPack
                 //set the index to -1 (no shape selected)
                 index = -1;
 
-                //redraw all shapes
-                MainForm.RedrawAllShapes();
-                
                 //reset the drawing region bitmap
                 MainForm.ResetDrawingRegion();
             }

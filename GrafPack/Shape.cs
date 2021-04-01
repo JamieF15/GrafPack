@@ -27,7 +27,7 @@ namespace GrafPack
             Pen deletePen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize);
 
             Draw(g, deletePen);
-            MainForm.RedrawAllShapes();
+            // MainForm.RedrawAllShapes();
 
             MainForm.ResetDrawingRegion();
         }
@@ -44,49 +44,14 @@ namespace GrafPack
 
                 case "Circle":
 
-                    DrawCircle(g);
+                    CreateCircle();
 
                     break;
             }
         }
 
-        void PlacePixel(int x, int y)
-        {
-            using Graphics g = MainForm.Canvas.CreateGraphics();
-            Bitmap bm = new Bitmap(1, 1);
-            bm.SetPixel(0, 0, ShapeCreationForm.chosenColour);
-            g.DrawImageUnscaled(bm, x, y);
-        }
 
-        void DrawCircle(int start, int end, int x, int y)
-        {
-            PlacePixel(start + x, end + y);
-            PlacePixel(start - x, end + y);
-            PlacePixel(start + x, end - y);
-            PlacePixel(start - x, end - y);
-            PlacePixel(start + y, end + x);
-            PlacePixel(start - y, end + x);
-            PlacePixel(start + y, end - x);
-            PlacePixel(start - y, end - x);
-        }
-
-        /// <summary>
-        /// Highlights a shape by drawing a dashed line in its position 
-        /// </summary>
-        /// <param name="g"></param>
-        public void HighlightShape(Graphics g)
-        {
-            float[] dashValues = { 1, 5 };
-
-            Pen dashedPen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize)
-            {
-                DashPattern = dashValues
-            };
-
-            Draw(g, dashedPen);
-        }
-
-        private void DrawSqaure(Graphics g, Pen p)
+        public void DrawSqaure(Graphics g, Pen p)
         {
             double diffX, diffY, xMid, yMid;
 
@@ -101,14 +66,58 @@ namespace GrafPack
             g.DrawLine(p, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int)ShapeStart.X, (int)ShapeStart.Y);
         }
 
-        private void DrawCircle(Graphics g)
+
+
+        void PlacePixel(int x, int y, Color c)
+        {
+            using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
+            Bitmap bm = new Bitmap(1, 1);
+            bm.SetPixel(0, 0, c);
+            g.DrawImageUnscaled(bm, x, y);
+        }
+
+        void SetCirclePixels(int start, int end, int x, int y)
+        {
+            PlacePixel(start + x, end + y, ShapeCreationForm.chosenColour);
+            PlacePixel(start - x, end + y, ShapeCreationForm.chosenColour);
+            PlacePixel(start + x, end - y, ShapeCreationForm.chosenColour);
+            PlacePixel(start - x, end - y, ShapeCreationForm.chosenColour);
+            PlacePixel(start + y, end + x, ShapeCreationForm.chosenColour);
+            PlacePixel(start - y, end + x, ShapeCreationForm.chosenColour);
+            PlacePixel(start + y, end - x, ShapeCreationForm.chosenColour);
+            PlacePixel(start - y, end - x, ShapeCreationForm.chosenColour);
+        }
+
+        public void SetCircleHighlightPixels(int start, int end, int x, int y, Color shapeColour)
+        {
+            PlacePixel(start + x, end + y, MainForm.Canvas.BackColor);
+            PlacePixel(start - x, end + y, shapeColour);
+            PlacePixel(start + x, end - y, shapeColour);
+            PlacePixel(start - x, end - y, MainForm.Canvas.BackColor);
+            PlacePixel(start + y, end + x, shapeColour);
+            PlacePixel(start - y, end + x, MainForm.Canvas.BackColor);
+            PlacePixel(start + y, end - x, MainForm.Canvas.BackColor);
+            PlacePixel(start - y, end - x, shapeColour);
+        }
+
+        public void DeleteCirclePixels(int start, int end, int x, int y)
+        {
+            PlacePixel(start + x, end + y, MainForm.Canvas.BackColor);
+            PlacePixel(start - x, end + y, MainForm.Canvas.BackColor);
+            PlacePixel(start + x, end - y, MainForm.Canvas.BackColor);
+            PlacePixel(start - x, end - y, MainForm.Canvas.BackColor);
+            PlacePixel(start + y, end + x, MainForm.Canvas.BackColor);
+            PlacePixel(start - y, end + x, MainForm.Canvas.BackColor);
+            PlacePixel(start + y, end - x, MainForm.Canvas.BackColor);
+            PlacePixel(start - y, end - x, MainForm.Canvas.BackColor);
+        }
+
+        public void CreateCircle()
         {
             int radius = 100;
             int x = 0;
             int y = radius;
             int d = 3 - 2 * radius;
-
-          //  DrawCircle(StartPoint.X, StartPoint.Y, x, y);
 
             while (y >= x)
             {
@@ -126,10 +135,74 @@ namespace GrafPack
                     d = d + 4 * (x - y) + 10;
                 }
                 else
-
+                {
                     d = d + 4 * x + 6;
+                }
 
-                DrawCircle(ShapeEnd.X, ShapeEnd.Y, x, y);
+                SetCirclePixels(ShapeEnd.X, ShapeEnd.Y, x, y);
+            }
+        }
+
+        public void HighlightCircle(Color shapeColour)
+        {
+            int radius = 100;
+            int x = 0;
+            int y = radius;
+            int d = 3 - 2 * radius;
+
+            while (y >= x)
+            {
+                // for each pixel we will
+                // draw all eight pixels
+
+                x++;
+
+                // check for decision parameter
+                // and correspondingly 
+                // update d, x, y
+                if (d > 0)
+                {
+                    y--;
+                    d = d + 4 * (x - y) + 10;
+                }
+                else
+                {
+                    d = d + 4 * x + 6;
+                }
+
+                SetCircleHighlightPixels(ShapeEnd.X, ShapeEnd.Y, x, y, shapeColour);
+            }
+        }
+
+
+        public void DeleteCircle()
+        {
+            int radius = 100;
+            int x = 0;
+            int y = radius;
+            int d = 3 - 2 * radius;
+
+            while (y >= x)
+            {
+                // for each pixel we will
+                // draw all eight pixels
+
+                x++;
+
+                // check for decision parameter
+                // and correspondingly 
+                // update d, x, y
+                if (d > 0)
+                {
+                    y--;
+                    d = d + 4 * (x - y) + 10;
+                }
+                else
+                {
+                    d = d + 4 * x + 6;
+                }
+
+                DeleteCirclePixels(ShapeEnd.X, ShapeEnd.Y, x, y);
             }
         }
     }

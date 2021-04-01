@@ -18,11 +18,14 @@ namespace GrafPack
         public static bool CreateCircle { get; set; }
         public static bool ShapeSelected { get; set; }
         public static int PenSize { get; set; } = 3;
+
         Point startPoint;
         Point endPoint;
         Pen p;
+
         public static DoubleBufferedPanel Canvas;
         public static Bitmap drawingRegion;
+        public static Bitmap allShapes;
 
         #endregion
 
@@ -47,6 +50,7 @@ namespace GrafPack
             this.Controls.Add(Canvas);
             Canvas.BorderStyle = BorderStyle.FixedSingle;
             drawingRegion = new Bitmap(Canvas.Width, Canvas.Height);
+            allShapes = new Bitmap(Canvas.Width, Canvas.Height);
 
             Canvas.MouseDown += new MouseEventHandler(this.CanvasMouseDown);
             Canvas.MouseUp += new MouseEventHandler(this.CanvasMouseUp);
@@ -121,6 +125,7 @@ namespace GrafPack
                 shapes.Add(s);
 
                 Canvas.BackgroundImage = drawingRegion;
+                allShapes = (Bitmap)drawingRegion.Clone();
             }
 
             if (e.Button == MouseButtons.Left && CreateCircle == true)
@@ -131,7 +136,12 @@ namespace GrafPack
                 p.Dispose();
                 CreateCircle = false;
                 shapes.Add(c);
+
+                Canvas.BackgroundImage = drawingRegion;
+                allShapes = (Bitmap)drawingRegion.Clone();
             }
+
+            ResetDrawingRegion();
         }
 
         /// <summary>
@@ -159,9 +169,6 @@ namespace GrafPack
                 //refresh the canvas to prevent creating a vast amount of shapes
                 ResetDrawingRegion();
 
-                //redraw all shapes to preserve the ones that were already there
-                RedrawAllShapes();
-
                 //draw the square to the canvas
                 s.Draw(g, p);
 
@@ -179,39 +186,42 @@ namespace GrafPack
 
             Canvas.Refresh();
             g.Clear(Canvas.BackColor);
+            g.DrawImage(allShapes, 0, 0);
         }
 
         /// <summary>
         /// On mouse move, all shapes are to be redrawn to preserve them and update the template for the shape being created
         /// </summary>
-        public static void RedrawAllShapes()
-        {
-            using Graphics g = Graphics.FromImage(drawingRegion);
+        //public static void RedrawAllShapes()
+        //{
+        //    using Graphics g = Graphics.FromImage(drawingRegion);
 
-            Pen PenForEachShape;
+        //    Pen PenForEachShape;
 
-            for (int i = 0; i < shapes.Count; i++)
-            {
-                PenForEachShape = new Pen(shapes[i].GetColor(), MainForm.PenSize);
-                shapes[i].Draw(g, PenForEachShape);
-                PenForEachShape.Dispose();
-            }
+        //    for (int i = 0; i < shapes.Count; i++)
+        //    {
+        //        PenForEachShape = new Pen(Canvas.BackColor, MainForm.PenSize);
+        //        // shapes[i].Draw(g, PenForEachShape);
+        //        PenForEachShape.Dispose();
+        //        Canvas.BackgroundImage = allShapes;
+
+        //    }
 
 
 
-            //foreach (Square square in shapes)
-            //{
-            //    PenForEachShape = new Pen(square.GetColor(), PenSize);
-            //    square.Draw(g, PenForEachShape);
-            //    PenForEachShape.Dispose();
-            //}
+        //    //foreach (Square square in shapes)
+        //    //{
+        //    //    PenForEachShape = new Pen(square.GetColor(), PenSize);
+        //    //    square.Draw(g, PenForEachShape);
+        //    //    PenForEachShape.Dispose();
+        //    //}
 
-            //foreach(Circle circle in shapes)
-            //{
-            //    PenForEachShape = new Pen(circle.GetColor());
-            //    circle.Draw(circle.GetStart(), circle.GetEnd(), circle.GetRadius());
-            //}
-        }
+        //    //foreach(Circle circle in shapes)
+        //    //{
+        //    //    PenForEachShape = new Pen(circle.GetColor());
+        //    //    circle.Draw(circle.GetStart(), circle.GetEnd(), circle.GetRadius());
+        //    //}
+        //}
 
         private void SelectButton_Click(object sender, EventArgs e)
         {
