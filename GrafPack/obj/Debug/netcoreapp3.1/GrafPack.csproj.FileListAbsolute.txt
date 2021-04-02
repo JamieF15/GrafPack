@@ -1,5 +1,4 @@
 C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.csprojAssemblyReference.cache
-C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.Form1.resources
 C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.csproj.GenerateResource.cache
 C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.AssemblyInfoInputs.cache
 C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.AssemblyInfo.cs
@@ -14,3 +13,8 @@ C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.dll
 C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.pdb
 C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.genruntimeconfig.cache
 C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.ExitPopUpForm.resources
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.ShapeCreationForm.resources
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.MainForm.resources
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.Properties.Resources.resources
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.ShapeSelectionForm.resources
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.ShapeMovementForm.resources
