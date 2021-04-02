@@ -17,3 +17,4 @@ C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.ShapeCr
 C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.MainForm.resources
 C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.Properties.Resources.resources
 C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.ShapeSelectionForm.resources
+C:\Users\User\Desktop\GrafPack\GrafPack\obj\Debug\netcoreapp3.1\GrafPack.ShapeMovementForm.resources

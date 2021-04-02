@@ -12,6 +12,8 @@ namespace GrafPack
         public string ShapeType { get; set; }
         public Point ShapeStart { get; set; }
         public Point ShapeEnd { get; set; }
+        public int Size { get; set; }
+
 
         /// <summary>
         /// Returns the colour of the shape
@@ -22,49 +24,50 @@ namespace GrafPack
             return ShapeColour;
         }
 
-        public void Delete(Graphics g)
-        {
-            Pen deletePen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize);
 
-            Draw(g, deletePen);
-            // MainForm.RedrawAllShapes();
+        //public void Delete(Graphics g)
+        //{
+        //    Pen deletePen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize);
 
-            MainForm.ResetDrawingRegion();
-        }
+        //    Draw(g, deletePen);
+        //    // MainForm.RedrawAllShapes();
 
-        public void Draw(Graphics g, Pen p)
-        {
-            switch (ShapeType)
-            {
-                case "Square":
+        //    MainForm.ResetDrawingRegion();
+        //}
 
-                    DrawSqaure(g, p);
+        //public void Draw(Graphics g, Pen p)
+        //{
+        //    switch (ShapeType)
+        //    {
+        //        case "Square":
 
-                    break;
+        //           // DrawSqaure(g, p);
 
-                case "Circle":
+        //            break;
 
-                    CreateCircle();
+        //        case "Circle":
 
-                    break;
-            }
-        }
+        //            DrawCircle();
+
+        //            break;
+        //    }
+        //}
 
 
-        public void DrawSqaure(Graphics g, Pen p)
-        {
-            double diffX, diffY, xMid, yMid;
+        //public void DrawSqaure(Graphics g, Pen p)
+        //{
+        //    double diffX, diffY, xMid, yMid;
 
-            diffX = ShapeStart.X - ShapeEnd.X;
-            diffY = ShapeStart.Y - ShapeEnd.Y;
-            xMid = (ShapeStart.X + ShapeEnd.X) / 2;
-            yMid = (ShapeStart.Y + ShapeEnd.Y) / 2;
+        //    diffX = ShapeStart.X - ShapeEnd.X;
+        //    diffY = ShapeStart.Y - ShapeEnd.Y;
+        //    xMid = (ShapeStart.X + ShapeEnd.X) / 2;
+        //    yMid = (ShapeStart.Y + ShapeEnd.Y) / 2;
 
-            g.DrawLine(p, (int)ShapeStart.X, (int)ShapeStart.Y, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2));
-            g.DrawLine(p, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2), (int)ShapeEnd.X, ShapeEnd.Y);
-            g.DrawLine(p, (int)ShapeEnd.X, (int)ShapeEnd.Y, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2));
-            g.DrawLine(p, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int)ShapeStart.X, (int)ShapeStart.Y);
-        }
+        //    g.DrawLine(p, (int)ShapeStart.X, (int)ShapeStart.Y, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2));
+        //    g.DrawLine(p, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2), (int)ShapeEnd.X, ShapeEnd.Y);
+        //    g.DrawLine(p, (int)ShapeEnd.X, (int)ShapeEnd.Y, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2));
+        //    g.DrawLine(p, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int)ShapeStart.X, (int)ShapeStart.Y);
+        //}
 
 
 
@@ -112,7 +115,7 @@ namespace GrafPack
             PlacePixel(start - y, end - x, MainForm.Canvas.BackColor);
         }
 
-        public void CreateCircle()
+        public void DrawCircle()
         {
             int radius = 100;
             int x = 0;
@@ -174,7 +177,6 @@ namespace GrafPack
             }
         }
 
-
         public void DeleteCircle()
         {
             int radius = 100;
@@ -205,5 +207,7 @@ namespace GrafPack
                 DeleteCirclePixels(ShapeEnd.X, ShapeEnd.Y, x, y);
             }
         }
+
+      
     }
 }

@@ -45,6 +45,7 @@ namespace GrafPack
             this.TriangleButton.TabIndex = 3;
             this.TriangleButton.Text = "Triangle";
             this.TriangleButton.UseVisualStyleBackColor = true;
+            this.TriangleButton.Click += new System.EventHandler(this.TriangleButton_Click);
             // 
             // SquareButton
             // 

@@ -13,6 +13,9 @@
     <Compile Update="ShapeCreationForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="ShapeMovementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="ShapeSelectionForm.cs">
       <SubType>Form</SubType>
     </Compile>

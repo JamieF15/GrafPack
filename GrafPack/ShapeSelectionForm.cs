@@ -6,7 +6,8 @@ namespace GrafPack
 {
     public partial class ShapeSelectionForm : Form
     {
-        int index = -1;
+        //represents the element of the shape array
+       public static int index = -1;
 
         public ShapeSelectionForm()
         {
@@ -16,14 +17,16 @@ namespace GrafPack
         /// <summary>
         /// Loops through the shape list and highlights 
         /// </summary>
-        void HighlightShapeInList()
+       public static void HighlightShapeInList()
         {
             //draws to the canvas of the main form
             using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
 
+            //formation of dashes to highlight a shape with
             float[] dashValues = { 1, 5 };
 
-            Pen dashedPen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize)
+            //pen to highlight shapes with
+            Pen highlightPen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize)
             {
                 DashPattern = dashValues
             };
@@ -34,34 +37,32 @@ namespace GrafPack
                 //if the index is greater than 0, highlight the appropriate shape
                 if (index >= 0)
                 {
-
                     switch (MainForm.shapes[index].ShapeType)
                     {
                         case "Square":
-                            //highlight the shape based on the index
-                            MainForm.shapes[index].DrawSqaure(g, dashedPen);
-                            MainForm.ResetDrawingRegion();
+                            Square replacementSquare = new Square(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].GetColor());
+                            replacementSquare.DrawSqaure(g, highlightPen);
                             break;
 
                         case "Circle":
 
                             MainForm.shapes[index].HighlightCircle(MainForm.shapes[index].GetColor());
-                            MainForm.ResetDrawingRegion();
-
                             break;
 
                         case "Triangle":
 
+                            Triangle replacementTriangle = new Triangle(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].GetColor());
+                            replacementTriangle.DrawTriangle(g, highlightPen);
                             break;
                     }
-               
 
+                    MainForm.ResetDrawingRegion();
                 }
             }
         }
 
         /// <summary>
-        /// Triggers when the form loads
+        /// Triggers when the form loads and checks if there are any shapes in the list 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -82,7 +83,7 @@ namespace GrafPack
         }
 
         /// <summary>
-        /// Triggers wen the 'left' button is clicked
+        /// Triggers wen the 'left' button is clicked and iterates left through the end of the list of shapes 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -91,9 +92,6 @@ namespace GrafPack
             //if the index is not set to no shape selected
             if (index != -1)
             {
-                //redraw all shapes to graphically represent no shape has been selected
-              //  MainForm.RedrawAllShapes();
-
                 //decrement the index
                 index--;
 
@@ -106,20 +104,16 @@ namespace GrafPack
                     MainForm.ShapeSelected = true;
 
                     shapeInfobx.Text = MainForm.shapes[index].ShapeType + " " + (index + 1) + " Selected";
-                    //   MainForm.ResetDrawingRegion();
+                }
 
-                }           
                 //if the index is less than 0, no shape can be selected
                 else
                 {
                     shapeInfobx.Text = "No shape selected";
-                   // MainForm.RedrawAllShapes();
                     MainForm.ResetDrawingRegion();
                     MainForm.ShapeSelected = false;
                 }
-
             }
- 
         }
 
         /// <summary>
@@ -137,9 +131,6 @@ namespace GrafPack
                 //set ShapeSelected to true
                 MainForm.ShapeSelected = true;
 
-                //redraw all shapes to visually re-select shapes 
-               // MainForm.RedrawAllShapes();
-                
                 //increase the index 
                 index++;
 
@@ -191,27 +182,24 @@ namespace GrafPack
             //if the shape list isn't empty and the index is not 1
             if (MainForm.shapes.Count > 0 && index != -1)
             {
-                //delte the shape in the selected index
-                MainForm.shapes[index].Delete(g);
-
                 switch (MainForm.shapes[index].ShapeType)
                 {
                     case "Square":
-                        MainForm.shapes[index].Draw(g, deletePen);
+                        Square deletetionSquare = new Square(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].GetColor());
+                        deletetionSquare.DrawSqaure(g, deletePen);
                         break;
-
 
                     case "Circle":
                         MainForm.shapes[index].DeleteCircle();
                         break;
 
                     case "Triangle":
-
+                        Triangle deletionTrianlge = new Triangle(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].GetColor());
+                        deletionTrianlge.DrawTriangle(g, deletePen);
                         break;
-                        
                 }
 
-                MainForm.allShapes = (Bitmap) MainForm.drawingRegion.Clone();
+                MainForm.allShapes = (Bitmap)MainForm.drawingRegion.Clone();
 
                 //remove the shape from the list
                 MainForm.shapes.RemoveAt(index);
@@ -225,6 +213,23 @@ namespace GrafPack
                 //reset the drawing region bitmap
                 MainForm.ResetDrawingRegion();
             }
+
+            deletePen.Dispose();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (MainForm.ShapeSelected == true)
+            {
+
+                ShapeMovementForm shapeMovementForm = new ShapeMovementForm();
+                shapeMovementForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("s");
+            }
+
         }
     }
 }

@@ -4,7 +4,7 @@ namespace GrafPack
 {
     public class DoubleBufferedPanel : Panel
     {
-        //https://gregback.net/double-buffered-panels-in-c.html
+        //Code from: https://gregback.net/double-buffered-panels-in-c.html
         public DoubleBufferedPanel()
         {
             this.SetStyle(ControlStyles.AllPaintingInWmPaint |

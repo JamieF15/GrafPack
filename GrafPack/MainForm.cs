@@ -10,23 +10,19 @@ namespace GrafPack
         #region Attributes, Objects, & Variables
         //Stores the shapes that were created
         public static List<Shape> shapes = new List<Shape>();
-
-        //
         public static bool CreateSquare { get; set; }
         public static bool CreateTriangle { get; set; }
-        //https://math.stackexchange.com/questions/543961/determine-third-point-of-triangle-when-two-points-and-all-sides-are-known
         public static bool CreateCircle { get; set; }
         public static bool ShapeSelected { get; set; }
         public static int PenSize { get; set; } = 3;
 
         Point startPoint;
         Point endPoint;
-        Pen p;
+        public static Pen mainPen;
 
         public static DoubleBufferedPanel Canvas;
         public static Bitmap drawingRegion;
         public static Bitmap allShapes;
-
         #endregion
 
         #region Methods
@@ -104,43 +100,40 @@ namespace GrafPack
             //set the end point to the position of the mouse
             endPoint = new Point(e.X, e.Y);
 
+            //create a pen to create the square
+            mainPen = new Pen(ShapeCreationForm.chosenColour, PenSize);
+
             if (e.Button == MouseButtons.Left && CreateSquare == true)
             {
-                //create a pen to create the square
-                p = new Pen(ShapeCreationForm.chosenColour, PenSize);
-
                 //create a square object
-                Square s = new Square(startPoint, endPoint, p.Color);
-
+                Square s = new Square(startPoint, endPoint, mainPen.Color);
                 //draw the square
-                s.Draw(g, p);
-
+                s.DrawSqaure(g, mainPen);
                 //dispose of the pen object
-                p.Dispose();
-
+                mainPen.Dispose();
                 //set the CreateSquare flag to false
                 CreateSquare = false;
-
                 //add the square to the list of shapes
                 shapes.Add(s);
-
-                Canvas.BackgroundImage = drawingRegion;
-                allShapes = (Bitmap)drawingRegion.Clone();
             }
-
-            if (e.Button == MouseButtons.Left && CreateCircle == true)
+            else if (e.Button == MouseButtons.Left && CreateCircle == true)
             {
-                Circle c = new Circle(p.Color, endPoint, 100);
-                c.Draw(g, p);
-
-                p.Dispose();
+                Circle c = new Circle(mainPen.Color, endPoint, 100);
+                c.DrawCircle();
                 CreateCircle = false;
                 shapes.Add(c);
-
-                Canvas.BackgroundImage = drawingRegion;
-                allShapes = (Bitmap)drawingRegion.Clone();
+            }
+            else if (e.Button == MouseButtons.Left && CreateTriangle == true)
+            {
+                Triangle t = new Triangle(startPoint, endPoint, mainPen.Color);
+                t.DrawTriangle(g, mainPen);
+                CreateTriangle = false;
+                shapes.Add(t);
             }
 
+            Canvas.BackgroundImage = drawingRegion;
+            allShapes = (Bitmap)drawingRegion.Clone();
+            mainPen.Dispose();
             ResetDrawingRegion();
         }
 
@@ -155,7 +148,7 @@ namespace GrafPack
             using Graphics g = Graphics.FromImage(drawingRegion);
 
             //create a pen object
-            p = new Pen(ShapeCreationForm.chosenColour, PenSize);
+            mainPen = new Pen(ShapeCreationForm.chosenColour, PenSize);
 
             // if the mouse used to click was the left button and the CreateSqaure is true
             if (e.Button == MouseButtons.Left && CreateSquare == true)
@@ -164,17 +157,32 @@ namespace GrafPack
                 endPoint = new Point(e.X, e.Y);
 
                 //create a square object to represent the template of the square
-                Square s = new Square(startPoint, endPoint, p.Color);
+                Square s = new Square(startPoint, endPoint, mainPen.Color);
 
                 //refresh the canvas to prevent creating a vast amount of shapes
                 ResetDrawingRegion();
 
                 //draw the square to the canvas
-                s.Draw(g, p);
+                s.DrawSqaure(g, mainPen);
 
-                //set the background of the canvas to the drawing region
-                Canvas.BackgroundImage = drawingRegion;
             }
+            else if (e.Button == MouseButtons.Left && CreateTriangle == true)
+            {
+                //set the endPoint to the positon of the mouse
+                endPoint = new Point(e.X, e.Y);
+
+                //create a square object to represent the template of the square
+                Triangle t = new Triangle(startPoint, endPoint, mainPen.Color);
+
+                //refresh the canvas to prevent creating a vast amount of shapes
+                ResetDrawingRegion();
+
+                //draw the square to the canvas
+                t.DrawTriangle(g, mainPen);
+            }
+
+            //set the background of the canvas to the drawing region
+            Canvas.BackgroundImage = drawingRegion;
         }
 
         /// <summary>
@@ -188,40 +196,6 @@ namespace GrafPack
             g.Clear(Canvas.BackColor);
             g.DrawImage(allShapes, 0, 0);
         }
-
-        /// <summary>
-        /// On mouse move, all shapes are to be redrawn to preserve them and update the template for the shape being created
-        /// </summary>
-        //public static void RedrawAllShapes()
-        //{
-        //    using Graphics g = Graphics.FromImage(drawingRegion);
-
-        //    Pen PenForEachShape;
-
-        //    for (int i = 0; i < shapes.Count; i++)
-        //    {
-        //        PenForEachShape = new Pen(Canvas.BackColor, MainForm.PenSize);
-        //        // shapes[i].Draw(g, PenForEachShape);
-        //        PenForEachShape.Dispose();
-        //        Canvas.BackgroundImage = allShapes;
-
-        //    }
-
-
-
-        //    //foreach (Square square in shapes)
-        //    //{
-        //    //    PenForEachShape = new Pen(square.GetColor(), PenSize);
-        //    //    square.Draw(g, PenForEachShape);
-        //    //    PenForEachShape.Dispose();
-        //    //}
-
-        //    //foreach(Circle circle in shapes)
-        //    //{
-        //    //    PenForEachShape = new Pen(circle.GetColor());
-        //    //    circle.Draw(circle.GetStart(), circle.GetEnd(), circle.GetRadius());
-        //    //}
-        //}
 
         private void SelectButton_Click(object sender, EventArgs e)
         {
