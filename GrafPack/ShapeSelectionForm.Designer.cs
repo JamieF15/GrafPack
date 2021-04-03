@@ -127,9 +127,9 @@ namespace GrafPack
 
         private System.Windows.Forms.Button Rightbtn;
         private System.Windows.Forms.Button Leftbtn;
-        private System.Windows.Forms.TextBox shapeInfobx;
         private System.Windows.Forms.Button Deletebtn;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button ExitBtn;
+        public System.Windows.Forms.TextBox shapeInfobx;
     }
 }

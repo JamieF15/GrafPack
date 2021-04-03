@@ -7,17 +7,23 @@ namespace GrafPack
     public partial class ShapeSelectionForm : Form
     {
         //represents the element of the shape array
-       public static int index = -1;
+        public static int index = -1;
+        public static string ShapeInfoText;
 
         public ShapeSelectionForm()
         {
             InitializeComponent();
         }
 
+        public void ChangeInfoBox(string newText)
+        {
+            shapeInfobx.Text = newText;
+        }
+
         /// <summary>
         /// Loops through the shape list and highlights 
         /// </summary>
-       public static void HighlightShapeInList()
+        public static void HighlightShapeInList()
         {
             //draws to the canvas of the main form
             using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
@@ -227,7 +233,15 @@ namespace GrafPack
             }
             else
             {
-                MessageBox.Show("s");
+                if (MainForm.shapes.Count == 0)
+                {
+                    MessageBox.Show("There are no shapes to select.");
+
+                }
+                else
+                {
+                    MessageBox.Show("Select a shape to transform.");
+                }
             }
 
         }

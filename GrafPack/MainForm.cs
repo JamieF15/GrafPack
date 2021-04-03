@@ -202,6 +202,13 @@ namespace GrafPack
             ShapeSelectionForm shapeSelectionForm = new ShapeSelectionForm();
             shapeSelectionForm.Show();
         }
+
+        public static void ApplyDrawingChange()
+        {
+            MainForm.Canvas.BackgroundImage = MainForm.drawingRegion;
+            MainForm.allShapes = (Bitmap)MainForm.drawingRegion.Clone();
+            MainForm.ResetDrawingRegion();
+        }
         #endregion
     }
 }
