@@ -46,18 +46,17 @@ namespace GrafPack
                     switch (MainForm.shapes[index].ShapeType)
                     {
                         case "Square":
-                            Square replacementSquare = new Square(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].GetColor());
+                            Square replacementSquare = new Square(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].ShapeColour);
                             replacementSquare.DrawSqaure(g, highlightPen);
                             break;
 
                         case "Circle":
-
-                            MainForm.shapes[index].HighlightCircle(MainForm.shapes[index].GetColor());
+                            Circle replacementCircle = new Circle(MainForm.shapes[index].ShapeColour, MainForm.shapes[index].ShapeEnd, 100);
+                            replacementCircle.HighlightCircle(MainForm.shapes[index].ShapeColour);
                             break;
 
                         case "Triangle":
-
-                            Triangle replacementTriangle = new Triangle(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].GetColor());
+                            Triangle replacementTriangle = new Triangle(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].ShapeColour);
                             replacementTriangle.DrawTriangle(g, highlightPen);
                             break;
                     }
@@ -191,20 +190,22 @@ namespace GrafPack
                 switch (MainForm.shapes[index].ShapeType)
                 {
                     case "Square":
-                        Square deletetionSquare = new Square(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].GetColor());
+                        Square deletetionSquare = new Square(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].ShapeColour);
                         deletetionSquare.DrawSqaure(g, deletePen);
                         break;
 
                     case "Circle":
-                        MainForm.shapes[index].DeleteCircle();
+                        Circle deletionCircle = new Circle(MainForm.shapes[index].ShapeColour, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].Radius);
+                        deletionCircle.DeleteCircle(); 
                         break;
 
                     case "Triangle":
-                        Triangle deletionTrianlge = new Triangle(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].GetColor());
+                        Triangle deletionTrianlge = new Triangle(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].ShapeColour);
                         deletionTrianlge.DrawTriangle(g, deletePen);
                         break;
                 }
 
+                //stops the shapes from re-appearing when the canvas is refreshed
                 MainForm.allShapes = (Bitmap)MainForm.drawingRegion.Clone();
 
                 //remove the shape from the list
@@ -220,14 +221,19 @@ namespace GrafPack
                 MainForm.ResetDrawingRegion();
             }
 
+            //remove the delete pen from memory
             deletePen.Dispose();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Opens a form to allow the user to move and rotate a shape
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnTransform_Click(object sender, EventArgs e)
         {
             if (MainForm.ShapeSelected == true)
             {
-
                 ShapeMovementForm shapeMovementForm = new ShapeMovementForm();
                 shapeMovementForm.Show();
             }

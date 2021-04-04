@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Text;
 using System.Windows.Forms;
 
@@ -17,9 +18,79 @@ namespace GrafPack
             InitializeComponent();
         }
 
+        //code refrenced form: https://stackoverflow.com/questions/13695317/rotate-a-point-around-another-point
+        public Point RotatePoint(Point pointToRotate, Point centerPoint, double angleInDegrees)
+        {
+            double angleInRadians = angleInDegrees * (Math.PI / 180);
+            double cosTheta = Math.Cos(angleInRadians);
+            double sinTheta = Math.Sin(angleInRadians);
+            return new Point
+            {
+                X =
+                    (int)
+                    (cosTheta * (pointToRotate.X - centerPoint.X) -
+                    sinTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.X),
+                Y =
+                    (int)
+                    (sinTheta * (pointToRotate.X - centerPoint.X) +
+                    cosTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.Y)
+            };
+        }
+
+        private Point ShapeCenter(Shape shape)
+        {
+            Point center;
+
+            center = new Point((shape.ShapeStart.X + shape.ShapeEnd.X) / 2, (shape.ShapeStart.Y + shape.ShapeEnd.Y) / 2);
+
+            return center;
+        }
+
         private void trkbRotation_Scroll(object sender, EventArgs e)
         {
             txtDegree.Text = "Shape rotated by: " + trkbRotation.Value.ToString() + "°";
+
+            RotateShape();
+        }
+
+        void RotateShape()
+        {
+
+           // trkbRotation.Value * (Math.PI / 360)
+            Pen deletePen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize);
+
+            using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
+            switch (MainForm.shapes[ShapeSelectionForm.index].ShapeType)
+            {
+
+
+                case "Square":
+      
+                    Square oldSquare = new Square(MainForm.shapes[ShapeSelectionForm.index].ShapeStart, MainForm.shapes[ShapeSelectionForm.index].ShapeEnd, MainForm.shapes[ShapeSelectionForm.index].ShapeColour);
+
+                    Square rotatedSquare = new Square(RotatePoint(MainForm.shapes[ShapeSelectionForm.index].ShapeStart, new Point(300, 300), 1),
+                    RotatePoint(MainForm.shapes[ShapeSelectionForm.index].ShapeEnd, new Point (300,300), 1),
+                    MainForm.shapes[ShapeSelectionForm.index].ShapeColour);
+
+                //    MainForm.shapes[ShapeSelectionForm.index].CalculateCentre()
+                    oldSquare.DrawSqaure(g, new Pen(MainForm.Canvas.BackColor, MainForm.PenSize));
+
+                    rotatedSquare.DrawSqaure(g, MainForm.mainPen);
+
+                    MainForm.shapes.Insert(ShapeSelectionForm.index, rotatedSquare);
+
+                    MainForm.shapes.RemoveAt(ShapeSelectionForm.index + 1);
+
+                    rotatedSquare.DrawSqaure(g, CreateHighlightPen());
+                    break;
+
+                case "Triangle":
+
+                    break;
+            }
+
+
+            MainForm.ApplyDrawingChange();
         }
 
         private void btnRight_Click(object sender, EventArgs e)
@@ -35,7 +106,7 @@ namespace GrafPack
                         break;
 
                     case "Circle":
-                        //MoveCircleDown();
+                        MoveCircleRight();
                         break;
 
                     case "Triangle":
@@ -59,7 +130,7 @@ namespace GrafPack
                         break;
 
                     case "Circle":
-                        //MoveCircleDown();
+                        MoveCircleUp();
                         break;
 
                     case "Triangle":
@@ -83,7 +154,7 @@ namespace GrafPack
                         break;
 
                     case "Circle":
-                        //MoveCircleDown();
+                        MoveCircleLeft();
                         break;
 
                     case "Triangle":
@@ -120,46 +191,45 @@ namespace GrafPack
                         break;
 
                     case "Circle":
-                        //MoveCircleDown();
+                        MoveCircleDown();
                         break;
 
                     case "Triangle":
                         MoveTriangleDown(g);
                         break;
                 }
-
                 MainForm.ApplyDrawingChange();
             }
         }
 
-
-        private void UpdateSquare(Graphics g, Square square)
+        private void UpdateShape(Graphics g, Shape shape)
         {
-            Square nonSelectedSquare = new Square(square.ShapeStart, square.ShapeEnd, square.ShapeColour);
-            nonSelectedSquare.DrawSqaure(g, new Pen(square.ShapeColour, MainForm.PenSize));
+            if (ShapeSelectionForm.index != -1)
+            {
+                switch (shape.ShapeType)
+                {
+                    case "Square":
+                        Square nonSelectedSquare = new Square(shape.ShapeStart, shape.ShapeEnd, shape.ShapeColour);
+                        nonSelectedSquare.DrawSqaure(g, new Pen(shape.ShapeColour, MainForm.PenSize));
+                        break;
 
-            MainForm.shapes.Insert(ShapeSelectionForm.index, nonSelectedSquare);
-            MainForm.shapes.RemoveAt(ShapeSelectionForm.index + 1);
+                    case "Circle":
+                        Circle nonSelectedCircle = new Circle(shape.ShapeColour, shape.ShapeEnd, shape.Radius);
+                        nonSelectedCircle.DrawCircle();
+                        break;
 
-            MainForm.ApplyDrawingChange();
-            ResetShapeSelection();
+                    case "Triangle":
+                        Triangle nonSelectedTriangle = new Triangle(shape.ShapeStart, shape.ShapeEnd, shape.ShapeColour);
+                        nonSelectedTriangle.DrawTriangle(g, new Pen(shape.ShapeColour, MainForm.PenSize));
+                        break;
+                }
+                MainForm.ApplyDrawingChange();
+            }
         }
 
-        private void UpdateTriangle(Graphics g, Triangle triangle)
+        private void UpdateAllOtherShapes(int index)
         {
-            Triangle nonSelectedTriangle = new Triangle(triangle.ShapeStart, triangle.ShapeEnd, triangle.ShapeColour);
-            nonSelectedTriangle.DrawTriangle(g, new Pen(triangle.ShapeColour, MainForm.PenSize));
 
-            MainForm.shapes.Insert(ShapeSelectionForm.index, nonSelectedTriangle);
-            MainForm.shapes.RemoveAt(ShapeSelectionForm.index + 1);
-
-            MainForm.ApplyDrawingChange();
-            ResetShapeSelection();
-        }
-
-        public void ResetShapeSelection()
-        {
-            ShapeSelectionForm.index = -1;
         }
 
         private void MoveTriangleDown(Graphics g)
@@ -189,7 +259,6 @@ namespace GrafPack
             MainForm.shapes.RemoveAt(ShapeSelectionForm.index + 1);
 
             newTriangle.DrawTriangle(g, CreateHighlightPen());
-
         }
 
         private void MoveTriangleUp(Graphics g)
@@ -401,10 +470,64 @@ namespace GrafPack
             movedSquare.DrawSqaure(g, CreateHighlightPen());
         }
 
-
-        void ReplaceShapesInList(Shape oldShape, Shape newShape)
+        public void MoveCircleDown()
         {
+            Circle oldCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].ShapeColour, new Point(MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.X, MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
 
+            Circle newCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].ShapeColour, new Point(MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.X, MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.Y + movemenIncrement), MainForm.shapes[ShapeSelectionForm.index].Radius);
+
+            oldCircle.DeleteCircle();
+
+            MainForm.shapes.Insert(ShapeSelectionForm.index, newCircle);
+
+            MainForm.shapes.RemoveAt(ShapeSelectionForm.index + 1);
+
+            newCircle.HighlightCircle(MainForm.shapes[ShapeSelectionForm.index].ShapeColour);
+        }
+
+        public void MoveCircleLeft()
+        {
+            Circle oldCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].ShapeColour, new Point(MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.X, MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
+
+            Circle newCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].ShapeColour, new Point(MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.X - movemenIncrement, MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
+
+            oldCircle.DeleteCircle();
+
+            MainForm.shapes.Insert(ShapeSelectionForm.index, newCircle);
+
+            MainForm.shapes.RemoveAt(ShapeSelectionForm.index + 1);
+
+            newCircle.HighlightCircle(MainForm.shapes[ShapeSelectionForm.index].ShapeColour);
+        }
+
+        public void MoveCircleRight()
+        {
+            Circle oldCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].ShapeColour, new Point(MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.X, MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
+
+            Circle newCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].ShapeColour, new Point(MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.X + movemenIncrement, MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
+
+            oldCircle.DeleteCircle();
+
+            MainForm.shapes.Insert(ShapeSelectionForm.index, newCircle);
+
+            MainForm.shapes.RemoveAt(ShapeSelectionForm.index + 1);
+
+            newCircle.HighlightCircle(MainForm.shapes[ShapeSelectionForm.index].ShapeColour);
+        }
+
+        public void MoveCircleUp()
+        {
+            Circle oldCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].ShapeColour, new Point(MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.X, MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
+
+            Circle newCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].ShapeColour, new Point(MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.X, MainForm.shapes[ShapeSelectionForm.index].ShapeEnd.Y - movemenIncrement), MainForm.shapes[ShapeSelectionForm.index].Radius);
+
+            oldCircle.DeleteCircle();
+
+            MainForm.shapes.Insert(ShapeSelectionForm.index, newCircle);
+
+            MainForm.shapes.RemoveAt(ShapeSelectionForm.index + 1);
+
+            newCircle.HighlightCircle(MainForm.shapes[ShapeSelectionForm.index].ShapeColour);
         }
 
         private void ShapeMovementForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -413,17 +536,31 @@ namespace GrafPack
 
             for (int i = 0; i < MainForm.shapes.Count; i++)
             {
-                switch (MainForm.shapes[i].ShapeType)
+                if (ShapeSelectionForm.index != -1)
                 {
-                    case "Square":
-                        UpdateSquare(g, (Square)MainForm.shapes[i]);
-                        break;
+                    switch (MainForm.shapes[i].ShapeType)
+                    {
+                        case "Square":
+                            UpdateShape(g, (Square)MainForm.shapes[i]);
+                            break;
 
-                    case "Triangle":
-                        UpdateTriangle(g, (Triangle)MainForm.shapes[i]);
-                        break;
+                        case "Circle":
+                            UpdateShape(g, (Circle)MainForm.shapes[i]);
+                            break;
+
+                        case "Triangle":
+                            UpdateShape(g, (Triangle)MainForm.shapes[i]);
+                            break;
+                    }
                 }
             }
+            ShapeSelectionForm.index = -1;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            RotateShape();
+
         }
     }
 }

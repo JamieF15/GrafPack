@@ -38,6 +38,8 @@ namespace GrafPack
             this.txtDegree = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtRotateBox = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trkbRotation)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,11 +120,30 @@ namespace GrafPack
             this.textBox2.TabIndex = 7;
             this.textBox2.Text = "Rotate Shape";
             // 
+            // txtRotateBox
+            // 
+            this.txtRotateBox.Location = new System.Drawing.Point(209, 154);
+            this.txtRotateBox.Name = "txtRotateBox";
+            this.txtRotateBox.Size = new System.Drawing.Size(100, 23);
+            this.txtRotateBox.TabIndex = 8;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(315, 154);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Rotate";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ShapeMovementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(445, 189);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.txtRotateBox);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.txtDegree);
@@ -150,5 +171,7 @@ namespace GrafPack
         private System.Windows.Forms.TextBox txtDegree;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtRotateBox;
+        private System.Windows.Forms.Button button1;
     }
 }

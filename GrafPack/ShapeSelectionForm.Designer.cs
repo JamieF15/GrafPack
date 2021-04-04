@@ -33,7 +33,7 @@ namespace GrafPack
             this.Leftbtn = new System.Windows.Forms.Button();
             this.shapeInfobx = new System.Windows.Forms.TextBox();
             this.Deletebtn = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnTransform = new System.Windows.Forms.Button();
             this.ExitBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -66,6 +66,7 @@ namespace GrafPack
             this.shapeInfobx.Size = new System.Drawing.Size(182, 20);
             this.shapeInfobx.TabIndex = 3;
             this.shapeInfobx.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.shapeInfobx.Visible = false;
             // 
             // Deletebtn
             // 
@@ -77,15 +78,15 @@ namespace GrafPack
             this.Deletebtn.UseVisualStyleBackColor = true;
             this.Deletebtn.Click += new System.EventHandler(this.Deletebtn_Click);
             // 
-            // button2
+            // btnTransform
             // 
-            this.button2.Location = new System.Drawing.Point(278, 12);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(127, 45);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Transform Shape";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnTransform.Location = new System.Drawing.Point(278, 12);
+            this.btnTransform.Name = "btnTransform";
+            this.btnTransform.Size = new System.Drawing.Size(127, 45);
+            this.btnTransform.TabIndex = 2;
+            this.btnTransform.Text = "Transform Shape";
+            this.btnTransform.UseVisualStyleBackColor = true;
+            this.btnTransform.Click += new System.EventHandler(this.btnTransform_Click);
             // 
             // ExitBtn
             // 
@@ -102,9 +103,9 @@ namespace GrafPack
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(684, 121);
+            this.ClientSize = new System.Drawing.Size(684, 69);
             this.Controls.Add(this.ExitBtn);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnTransform);
             this.Controls.Add(this.Deletebtn);
             this.Controls.Add(this.shapeInfobx);
             this.Controls.Add(this.Leftbtn);
@@ -128,7 +129,7 @@ namespace GrafPack
         private System.Windows.Forms.Button Rightbtn;
         private System.Windows.Forms.Button Leftbtn;
         private System.Windows.Forms.Button Deletebtn;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnTransform;
         private System.Windows.Forms.Button ExitBtn;
         public System.Windows.Forms.TextBox shapeInfobx;
     }
