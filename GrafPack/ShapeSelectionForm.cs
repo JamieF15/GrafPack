@@ -48,6 +48,7 @@ namespace GrafPack
                         case "Square":
                             Square replacementSquare = new Square(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].ShapeColour);
                             replacementSquare.DrawSqaure(g, highlightPen);
+                            ShapeMovementForm.CalculateSquareCenter(replacementSquare);
                             break;
 
                         case "Circle":
@@ -58,6 +59,7 @@ namespace GrafPack
                         case "Triangle":
                             Triangle replacementTriangle = new Triangle(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].ShapeColour);
                             replacementTriangle.DrawTriangle(g, highlightPen);
+                            ShapeMovementForm.CalculateTriangleCentre(replacementTriangle);
                             break;
                     }
 
@@ -232,24 +234,30 @@ namespace GrafPack
         /// <param name="e"></param>
         private void btnTransform_Click(object sender, EventArgs e)
         {
-            if (MainForm.ShapeSelected == true)
+            //if a shape is selcted, allow the user to move it
+            if (index != -1)
             {
-                ShapeMovementForm shapeMovementForm = new ShapeMovementForm();
-                shapeMovementForm.Show();
-            }
-            else
-            {
-                if (MainForm.shapes.Count == 0)
+                //if a shape is selected, open the form to move it 
+                if (MainForm.ShapeSelected == true)
                 {
-                    MessageBox.Show("There are no shapes to select.");
-
+                    ShapeMovementForm shapeMovementForm = new ShapeMovementForm();
+                    shapeMovementForm.Show();
                 }
                 else
                 {
-                    MessageBox.Show("Select a shape to transform.");
+                    //if there are now shapes, inform the user
+                    if (MainForm.shapes.Count == 0)
+                    {
+                        MessageBox.Show("There are no shapes to select.");
+
+                    }
+                    //if there are shapes, inform the user to select one
+                    else
+                    {
+                        MessageBox.Show("Select a shape to transform.");
+                    }
                 }
             }
-
         }
     }
 }

@@ -40,6 +40,8 @@ namespace GrafPack
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.txtRotateBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnRotateRight = new System.Windows.Forms.Button();
+            this.btnRotateLeft = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trkbRotation)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,7 +87,7 @@ namespace GrafPack
             // 
             // trkbRotation
             // 
-            this.trkbRotation.Location = new System.Drawing.Point(209, 96);
+            this.trkbRotation.Location = new System.Drawing.Point(425, 96);
             this.trkbRotation.Maximum = 360;
             this.trkbRotation.Name = "trkbRotation";
             this.trkbRotation.Size = new System.Drawing.Size(209, 45);
@@ -95,7 +97,7 @@ namespace GrafPack
             // 
             // txtDegree
             // 
-            this.txtDegree.Location = new System.Drawing.Point(209, 31);
+            this.txtDegree.Location = new System.Drawing.Point(425, 31);
             this.txtDegree.Name = "txtDegree";
             this.txtDegree.Size = new System.Drawing.Size(209, 23);
             this.txtDegree.TabIndex = 5;
@@ -113,7 +115,7 @@ namespace GrafPack
             // textBox2
             // 
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Location = new System.Drawing.Point(209, 9);
+            this.textBox2.Location = new System.Drawing.Point(234, 12);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(77, 16);
@@ -122,26 +124,47 @@ namespace GrafPack
             // 
             // txtRotateBox
             // 
-            this.txtRotateBox.Location = new System.Drawing.Point(209, 154);
+            this.txtRotateBox.Location = new System.Drawing.Point(425, 154);
             this.txtRotateBox.Name = "txtRotateBox";
             this.txtRotateBox.Size = new System.Drawing.Size(100, 23);
             this.txtRotateBox.TabIndex = 8;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(315, 154);
+            this.button1.Location = new System.Drawing.Point(531, 154);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 9;
             this.button1.Text = "Rotate";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnRotateRight
+            // 
+            this.btnRotateRight.Image = ((System.Drawing.Image)(resources.GetObject("btnRotateRight.Image")));
+            this.btnRotateRight.Location = new System.Drawing.Point(282, 80);
+            this.btnRotateRight.Name = "btnRotateRight";
+            this.btnRotateRight.Size = new System.Drawing.Size(45, 43);
+            this.btnRotateRight.TabIndex = 10;
+            this.btnRotateRight.UseVisualStyleBackColor = true;
+            this.btnRotateRight.Click += new System.EventHandler(this.btnRotateRight_Click);
+            // 
+            // btnRotateLeft
+            // 
+            this.btnRotateLeft.Image = ((System.Drawing.Image)(resources.GetObject("btnRotateLeft.Image")));
+            this.btnRotateLeft.Location = new System.Drawing.Point(209, 80);
+            this.btnRotateLeft.Name = "btnRotateLeft";
+            this.btnRotateLeft.Size = new System.Drawing.Size(45, 43);
+            this.btnRotateLeft.TabIndex = 11;
+            this.btnRotateLeft.UseVisualStyleBackColor = true;
+            this.btnRotateLeft.Click += new System.EventHandler(this.btnRotateLeft_Click);
             // 
             // ShapeMovementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(445, 189);
+            this.ClientSize = new System.Drawing.Size(636, 189);
+            this.Controls.Add(this.btnRotateLeft);
+            this.Controls.Add(this.btnRotateRight);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txtRotateBox);
             this.Controls.Add(this.textBox2);
@@ -173,5 +196,7 @@ namespace GrafPack
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox txtRotateBox;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRotateRight;
+        private System.Windows.Forms.Button btnRotateLeft;
     }
 }

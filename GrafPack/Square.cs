@@ -16,6 +16,11 @@ namespace GrafPack
             ShapeType = "Square";
         }
 
+        /// <summary>
+        /// Draws a square to th canvas based on mouse clicks
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="p"></param>
         public void DrawSqaure(Graphics g, Pen p)
         {
             double diffX, diffY, xMid, yMid;
