@@ -63,7 +63,7 @@ namespace GrafPack
 
                         case "Circle":
                             //circle object to replace the old circle
-                            Circle replacementCircle = new Circle(MainForm.shapes[index].Colour, MainForm.shapes[index].End, 100);
+                            Circle replacementCircle = new Circle(MainForm.shapes[index].Colour, MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Radius);
 
                             //draw the circle 
                             replacementCircle.Highlight(MainForm.shapes[ShapeSelectionForm.index].Colour);
@@ -209,7 +209,7 @@ namespace GrafPack
 
                     case "Circle":
                         //circle object to delete the old square
-                        Circle deletionCircle = new Circle(MainForm.shapes[index].Colour, MainForm.shapes[index].End, MainForm.shapes[index].Radius);
+                        Circle deletionCircle = new Circle(MainForm.shapes[index].Colour, MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Radius);
 
                         //deletet the old circle
                         deletionCircle.Delete();

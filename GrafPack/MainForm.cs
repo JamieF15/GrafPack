@@ -149,7 +149,7 @@ namespace GrafPack
             {
                 //create a circle object
                 Circle c = new Circle(mainPen.Color, startPoint, endPoint, 0);
-                c.Draw();
+              //  c.Draw();
                 CreateCircle = false;
                 shapes.Add(c);
             }
@@ -200,9 +200,7 @@ namespace GrafPack
             {
                 endPoint = new Point(e.X, e.Y);
 
-                Circle c = new Circle(mainPen.Color, endPoint, 0);
-
-                c.Radius =  (int)GetPointDistance(c.Start.X, c.Start.Y, c.End.X, c.End.Y);
+                Circle c = new Circle(mainPen.Color, startPoint, endPoint, (int)GetPointDistance(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y));
 
                 ResetDrawingRegion();
 

@@ -144,8 +144,8 @@ namespace GrafPack
         private void RotateSquare(Graphics g)
         {
             //old square object to delete the old one
-            Square oldSquare = new Square(MainForm.shapes[ShapeSelectionForm.index].Start, 
-                                          MainForm.shapes[ShapeSelectionForm.index].End, 
+            Square oldSquare = new Square(MainForm.shapes[ShapeSelectionForm.index].Start,
+                                          MainForm.shapes[ShapeSelectionForm.index].End,
                                           MainForm.shapes[ShapeSelectionForm.index].Colour);
 
             //square object with rotated points 
@@ -177,13 +177,13 @@ namespace GrafPack
         {
 
             //old triangle used to delete the old one
-            Triangle oldTriangle = new Triangle(MainForm.shapes[ShapeSelectionForm.index].Start, 
-                                                MainForm.shapes[ShapeSelectionForm.index].End, 
+            Triangle oldTriangle = new Triangle(MainForm.shapes[ShapeSelectionForm.index].Start,
+                                                MainForm.shapes[ShapeSelectionForm.index].End,
                                                 MainForm.shapes[ShapeSelectionForm.index].Colour);
 
             //triangle with rotated points
             Triangle rotatedTriangle = new Triangle(RotatePoint(MainForm.shapes[ShapeSelectionForm.index].Start, ShapeCenter, rotationIncrement),
-                                                    RotatePoint(MainForm.shapes[ShapeSelectionForm.index].End, ShapeCenter, rotationIncrement), 
+                                                    RotatePoint(MainForm.shapes[ShapeSelectionForm.index].End, ShapeCenter, rotationIncrement),
                                                     MainForm.shapes[ShapeSelectionForm.index].Colour);
 
             //delete the old triangle
@@ -332,7 +332,7 @@ namespace GrafPack
         {
             //rotate the selected shape right
             RotateShape("right");
-            
+
             //repair all other shapes to preserve them
             RepairAllOtherShapes();
         }
@@ -390,7 +390,7 @@ namespace GrafPack
                         break;
 
                     case "Circle":
-                        Circle nonSelectedCircle = new Circle(shape.Colour, shape.End, shape.Radius);
+                        Circle nonSelectedCircle = new Circle(shape.Colour, shape.Start, shape.End, shape.Radius);
                         nonSelectedCircle.Draw();
                         break;
 
@@ -675,9 +675,9 @@ namespace GrafPack
         #region Circle Movement
         public void MoveCircleDown()
         {
-            Circle oldCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].End.X, MainForm.shapes[ShapeSelectionForm.index].End.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
+            Circle oldCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].Start.X, MainForm.shapes[ShapeSelectionForm.index].Start.Y), new Point(MainForm.shapes[ShapeSelectionForm.index].End.X, MainForm.shapes[ShapeSelectionForm.index].End.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
 
-            Circle newCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].End.X, MainForm.shapes[ShapeSelectionForm.index].End.Y + movementIncrement), MainForm.shapes[ShapeSelectionForm.index].Radius);
+            Circle newCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].Start.X, MainForm.shapes[ShapeSelectionForm.index].Start.Y), new Point(MainForm.shapes[ShapeSelectionForm.index].End.X, MainForm.shapes[ShapeSelectionForm.index].End.Y + movementIncrement), MainForm.shapes[ShapeSelectionForm.index].Radius);
 
             oldCircle.Delete();
 
@@ -690,9 +690,9 @@ namespace GrafPack
 
         public void MoveCircleLeft()
         {
-            Circle oldCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].End.X, MainForm.shapes[ShapeSelectionForm.index].End.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
+            Circle oldCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].Start.X, MainForm.shapes[ShapeSelectionForm.index].Start.Y), new Point(MainForm.shapes[ShapeSelectionForm.index].End.X, MainForm.shapes[ShapeSelectionForm.index].End.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
 
-            Circle newCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].End.X - movementIncrement, MainForm.shapes[ShapeSelectionForm.index].End.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
+            Circle newCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].Start.X, MainForm.shapes[ShapeSelectionForm.index].Start.Y), new Point(MainForm.shapes[ShapeSelectionForm.index].End.X - movementIncrement, MainForm.shapes[ShapeSelectionForm.index].End.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
 
             oldCircle.Delete();
 
@@ -705,9 +705,9 @@ namespace GrafPack
 
         public void MoveCircleRight()
         {
-            Circle oldCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].End.X, MainForm.shapes[ShapeSelectionForm.index].End.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
+            Circle oldCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].Start.X, MainForm.shapes[ShapeSelectionForm.index].Start.Y), new Point(MainForm.shapes[ShapeSelectionForm.index].End.X, MainForm.shapes[ShapeSelectionForm.index].End.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
 
-            Circle newCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].End.X + movementIncrement, MainForm.shapes[ShapeSelectionForm.index].End.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
+            Circle newCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].Start.X, MainForm.shapes[ShapeSelectionForm.index].Start.Y), new Point(MainForm.shapes[ShapeSelectionForm.index].End.X + movementIncrement, MainForm.shapes[ShapeSelectionForm.index].End.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
 
             oldCircle.Delete();
 
@@ -720,9 +720,9 @@ namespace GrafPack
 
         public void MoveCircleUp()
         {
-            Circle oldCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].End.X, MainForm.shapes[ShapeSelectionForm.index].End.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
+            Circle oldCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].Start.X, MainForm.shapes[ShapeSelectionForm.index].Start.Y), new Point(MainForm.shapes[ShapeSelectionForm.index].End.X, MainForm.shapes[ShapeSelectionForm.index].End.Y), MainForm.shapes[ShapeSelectionForm.index].Radius);
 
-            Circle newCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].End.X, MainForm.shapes[ShapeSelectionForm.index].End.Y - movementIncrement), MainForm.shapes[ShapeSelectionForm.index].Radius);
+            Circle newCircle = new Circle(MainForm.shapes[ShapeSelectionForm.index].Colour, new Point(MainForm.shapes[ShapeSelectionForm.index].Start.X, MainForm.shapes[ShapeSelectionForm.index].Start.Y), new Point(MainForm.shapes[ShapeSelectionForm.index].End.X, MainForm.shapes[ShapeSelectionForm.index].End.Y - movementIncrement), MainForm.shapes[ShapeSelectionForm.index].Radius);
 
             oldCircle.Delete();
 
