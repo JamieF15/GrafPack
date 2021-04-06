@@ -224,6 +224,8 @@ namespace GrafPack
                         break;
                 }
 
+                ShapeMovementForm.RepairAllOtherShapes();
+
                 //stops the shapes from re-appearing when the canvas is refreshed
                 MainForm.allShapes = (Bitmap)MainForm.drawingRegion.Clone();
 
@@ -248,38 +250,40 @@ namespace GrafPack
         /// <param name="e"></param>
         private void btnTransform_Click(object sender, EventArgs e)
         {
-            //if a shape is selcted, allow the user to move it
-            if (index != -1)
+            if (!ShapeMovementForm.isOpen)
             {
-                //if a shape is selected, open the form to move it 
-                if (MainForm.ShapeSelected == true)
+                //if a shape is selcted, allow the user to move it
+                if (index != -1)
                 {
-                    //create an object of the shape movement fornm
-                    ShapeMovementForm shapeMovementForm = new ShapeMovementForm();
+                    //if a shape is selected, open the form to move it 
+                    if (MainForm.ShapeSelected == true)
+                    {
+                        //create an object of the shape movement fornm
+                        ShapeMovementForm shapeMovementForm = new ShapeMovementForm();
 
-                    //open the shape movement form
-                    shapeMovementForm.Show();
+                        //open the shape movement form
+                        shapeMovementForm.Show();
+                    }
+                    else
+                    {
+                        //if there are now shapes, inform the user
+                        if (MainForm.shapes.Count == 0)
+                        {
+                            MessageBox.Show("There are no shapes to select.");
+
+                        }
+                        //if there are shapes, inform the user to select one
+                        else
+                        {
+                            MessageBox.Show("Select a shape to transform.");
+                        }
+                    }
                 }
                 else
                 {
-                    //if there are now shapes, inform the user
-                    if (MainForm.shapes.Count == 0)
-                    {
-                        MessageBox.Show("There are no shapes to select.");
-
-                    }
-                    //if there are shapes, inform the user to select one
-                    else
-                    {
-                        MessageBox.Show("Select a shape to transform.");
-                    }
+                    MessageBox.Show("Select a shape to transform.");
                 }
-            }
-            else
-            {
-                MessageBox.Show("Select a shape to transform.");
             }
         }
     }
 }
-

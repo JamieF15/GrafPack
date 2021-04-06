@@ -132,12 +132,6 @@ namespace GrafPack
                 //create a square object
                 Square s = new Square(startPoint, endPoint, mainPen.Color);
 
-                //draw the square
-                s.DrawSqaure(g, mainPen);
-
-                //dispose of the pen object
-                mainPen.Dispose();
-
                 //set the CreateSquare flag to false
                 CreateSquare = false;
 
@@ -148,15 +142,13 @@ namespace GrafPack
             else if (e.Button == MouseButtons.Left && CreateCircle == true)
             {
                 //create a circle object
-                Circle c = new Circle(mainPen.Color, startPoint, endPoint, 0);
-              //  c.Draw();
+                Circle c = new Circle(mainPen.Color, startPoint, endPoint, GetPointDistance(startPoint.X, endPoint.Y, endPoint.X, startPoint.Y ));
                 CreateCircle = false;
                 shapes.Add(c);
             }
             else if (e.Button == MouseButtons.Left && CreateTriangle == true)
             {
                 Triangle t = new Triangle(startPoint, endPoint, mainPen.Color);
-                t.Draw(g, mainPen);
                 CreateTriangle = false;
                 shapes.Add(t);
             }
@@ -202,8 +194,10 @@ namespace GrafPack
 
                 Circle c = new Circle(mainPen.Color, startPoint, endPoint, (int)GetPointDistance(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y));
 
+                //reset the drawing region
                 ResetDrawingRegion();
 
+                //draw the circle
                 c.Draw();
 
             }
@@ -226,9 +220,9 @@ namespace GrafPack
             Canvas.BackgroundImage = drawingRegion;
         }
 
-        private static double GetPointDistance(double x1, double y1, double x2, double y2)
+        private static int GetPointDistance(double startX, double endY, double endX, double startY)
         {
-            return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
+            return (int)Math.Sqrt(Math.Pow((endX - startX), 2) + Math.Pow((startY - endY), 2));
         }
 
         /// <summary>

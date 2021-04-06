@@ -139,6 +139,7 @@ namespace GrafPack
             this.Name = "ShapeMovementForm";
             this.Text = "Tranform Shape";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ShapeMovementForm_FormClosed);
+            this.Load += new System.EventHandler(this.ShapeMovementForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

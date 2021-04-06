@@ -11,6 +11,9 @@ namespace GrafPack
 {
     public partial class ShapeMovementForm : Form
     {
+        //states whether or not the form is open or not
+        public static bool isOpen = false;
+
         public ShapeMovementForm()
         {
             InitializeComponent();
@@ -175,7 +178,6 @@ namespace GrafPack
         /// <param name="g"></param>
         private void RotateTriangle(Graphics g)
         {
-
             //old triangle used to delete the old one
             Triangle oldTriangle = new Triangle(MainForm.shapes[ShapeSelectionForm.index].Start,
                                                 MainForm.shapes[ShapeSelectionForm.index].End,
@@ -355,7 +357,7 @@ namespace GrafPack
         /// <summary>
         /// Ensures when a shape is moved or rotated, all other shapes will not be damaged in the process
         /// </summary>
-        private void RepairAllOtherShapes()
+        public static void RepairAllOtherShapes()
         {
             //draw to the drawing region
             using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
@@ -376,7 +378,7 @@ namespace GrafPack
         /// </summary>
         /// <param name="g"></param>
         /// <param name="shape"></param>
-        private void UpdateShape(Graphics g, Shape shape)
+        public static void UpdateShape(Graphics g, Shape shape)
         {
             //if the index not -1, meaning a shape is not selected
             if (ShapeSelectionForm.index != -1)
@@ -771,6 +773,13 @@ namespace GrafPack
             }
             //reset the shape selection
             ShapeSelectionForm.index = -1;
+
+            isOpen = false;
+        }
+
+        private void ShapeMovementForm_Load(object sender, EventArgs e)
+        {
+            isOpen = true;
         }
     }
 }

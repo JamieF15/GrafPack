@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\GrafPack\\GrafPack\\GrafPack.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\grafpack2\\GrafPack\\GrafPack\\GrafPack.csproj",
       "projectName": "GrafPack",
-      "projectPath": "C:\\Users\\User\\Desktop\\GrafPack\\GrafPack\\GrafPack.csproj",
+      "projectPath": "C:\\Users\\User\\Desktop\\grafpack2\\GrafPack\\GrafPack\\GrafPack.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\GrafPack\\GrafPack\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\grafpack2\\GrafPack\\GrafPack\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

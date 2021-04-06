@@ -23,6 +23,7 @@ namespace GrafPack
         }
 
         #region Methods
+
         /// <summary>
         /// Places a pixels on the screen 
         /// </summary>
@@ -53,14 +54,14 @@ namespace GrafPack
         /// <param name="y">The y coodinate</param>
         private void SetCirclePixels(int start, int end, int x, int y)
         {
-            PlacePixel(start + x, end + y, ShapeCreationForm.chosenColour);
-            PlacePixel(start - x, end + y, ShapeCreationForm.chosenColour);
-            PlacePixel(start + x, end - y, ShapeCreationForm.chosenColour);
-            PlacePixel(start - x, end - y, ShapeCreationForm.chosenColour);
-            PlacePixel(start + y, end + x, ShapeCreationForm.chosenColour);
-            PlacePixel(start - y, end + x, ShapeCreationForm.chosenColour);
-            PlacePixel(start + y, end - x, ShapeCreationForm.chosenColour);
-            PlacePixel(start - y, end - x, ShapeCreationForm.chosenColour);
+            PlacePixel(start + x, end + y, Colour);
+            PlacePixel(start - x, end + y, Colour);
+            PlacePixel(start + x, end - y, Colour);
+            PlacePixel(start - x, end - y, Colour);
+            PlacePixel(start + y, end + x, Colour);
+            PlacePixel(start - y, end + x, Colour);
+            PlacePixel(start + y, end - x, Colour);
+            PlacePixel(start - y, end - x, Colour);
         }
 
         /// <summary>
