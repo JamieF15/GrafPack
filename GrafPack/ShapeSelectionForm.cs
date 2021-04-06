@@ -8,26 +8,18 @@ namespace GrafPack
     {
         //represents the element of the shape array
         public static int index = -1;
-        public static string ShapeInfoText;
 
         public ShapeSelectionForm()
         {
             InitializeComponent();
         }
 
-        public void ChangeInfoBox(string newText)
-        {
-            shapeInfobx.Text = newText;
-        }
-
         /// <summary>
-        /// Loops through the shape list and highlights 
+        /// Creates a pen that can highlight a shape
         /// </summary>
-        public static void HighlightShapeInList()
+        /// <returns>A pen object</returns>
+        public static Pen CreateHighlightPen()
         {
-            //draws to the canvas of the main form
-            using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
-
             //formation of dashes to highlight a shape with
             float[] dashValues = { 1, 5 };
 
@@ -37,32 +29,59 @@ namespace GrafPack
                 DashPattern = dashValues
             };
 
+            //return the pen
+            return highlightPen;
+        }
+
+        /// <summary>
+        /// Hightlights the relevant shape to show it is selected
+        /// </summary>
+        public static void HighlightShapeInList()
+        {
+            //draws to the canvas of the main form
+            using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
+
             //if the shape list is not empty and the index is less than the amount of shapes in the list
             if (MainForm.shapes.Count > -1 && index < MainForm.shapes.Count)
             {
                 //if the index is greater than 0, highlight the appropriate shape
                 if (index >= 0)
                 {
-                    switch (MainForm.shapes[index].ShapeType)
+                    //switch statement for the shape type
+                    switch (MainForm.shapes[index].Type)
                     {
                         case "Square":
-                            Square replacementSquare = new Square(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].ShapeColour);
-                            replacementSquare.DrawSqaure(g, highlightPen);
+                            //shape object to replace the old square
+                            Square replacementSquare = new Square(MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Colour);
+
+                            //draw the replacement square with the highlight pen
+                            replacementSquare.DrawSqaure(g, CreateHighlightPen());
+
+                            //calculate the centre of the new square for rotation
                             ShapeMovementForm.CalculateSquareCenter(replacementSquare);
                             break;
 
                         case "Circle":
-                            Circle replacementCircle = new Circle(MainForm.shapes[index].ShapeColour, MainForm.shapes[index].ShapeEnd, 100);
-                            replacementCircle.HighlightCircle(MainForm.shapes[index].ShapeColour);
+                            //circle object to replace the old circle
+                            Circle replacementCircle = new Circle(MainForm.shapes[index].Colour, MainForm.shapes[index].End, 100);
+
+                            //draw the circle 
+                            replacementCircle.Highlight(MainForm.shapes[ShapeSelectionForm.index].Colour);
                             break;
 
                         case "Triangle":
-                            Triangle replacementTriangle = new Triangle(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].ShapeColour);
-                            replacementTriangle.DrawTriangle(g, highlightPen);
+                            //triangle object to replace the old one
+                            Triangle replacementTriangle = new Triangle(MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Colour);
+
+                            //draw the replacement triangle
+                            replacementTriangle.Draw(g, CreateHighlightPen());
+
+                            //calculate the centre of the new triangle
                             ShapeMovementForm.CalculateTriangleCentre(replacementTriangle);
                             break;
                     }
 
+                    //reset the drawing region
                     MainForm.ResetDrawingRegion();
                 }
             }
@@ -77,16 +96,6 @@ namespace GrafPack
         {
             //set ShapeSelected to false (maybe delete variable)
             MainForm.ShapeSelected = false;
-
-            // if the main form isn't empty, show that there are no shapes to select
-            if (MainForm.shapes.Count == 0)
-            {
-                shapeInfobx.Text = "There are no shapes to select";
-            }
-            else
-            {
-                shapeInfobx.Text = "No shape selected";
-            }
         }
 
         /// <summary>
@@ -109,15 +118,14 @@ namespace GrafPack
                 if (index >= 0)
                 {
                     MainForm.ShapeSelected = true;
-
-                    shapeInfobx.Text = MainForm.shapes[index].ShapeType + " " + (index + 1) + " Selected";
                 }
-
                 //if the index is less than 0, no shape can be selected
                 else
                 {
-                    shapeInfobx.Text = "No shape selected";
+                    //reset the drawign region
                     MainForm.ResetDrawingRegion();
+
+                    //set the ShapeSelected bool to false
                     MainForm.ShapeSelected = false;
                 }
             }
@@ -130,6 +138,7 @@ namespace GrafPack
         /// <param name="e"></param>
         private void Rightbtn_Click(object sender, EventArgs e)
         {
+            //draw to the drawing region
             using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
 
             //if the index is not equal to the amount of shapes in the list - 1
@@ -143,9 +152,6 @@ namespace GrafPack
 
                 //highlight the appropriate shape in the list
                 HighlightShapeInList();
-
-                //set the info box to hte appropriate information
-                shapeInfobx.Text = MainForm.shapes[index].ShapeType + " " + (index + 1) + " Selected";
             }
         }
 
@@ -171,7 +177,7 @@ namespace GrafPack
         private void ExitBtn_Click(object sender, EventArgs e)
         {
             //close the window
-            this.Close();
+            Close();
         }
 
         /// <summary>
@@ -184,26 +190,37 @@ namespace GrafPack
             //draws to the canvas
             using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
 
+            //used to remove a shape from the canvas
             Pen deletePen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize);
 
             //if the shape list isn't empty and the index is not 1
             if (MainForm.shapes.Count > 0 && index != -1)
             {
-                switch (MainForm.shapes[index].ShapeType)
+                //switch statement on the shape type
+                switch (MainForm.shapes[index].Type)
                 {
                     case "Square":
-                        Square deletetionSquare = new Square(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].ShapeColour);
+                        //square object to delete the old sqaure
+                        Square deletetionSquare = new Square(MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Colour);
+                        
+                        //draw the new square over the old square
                         deletetionSquare.DrawSqaure(g, deletePen);
                         break;
 
                     case "Circle":
-                        Circle deletionCircle = new Circle(MainForm.shapes[index].ShapeColour, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].Radius);
-                        deletionCircle.DeleteCircle(); 
+                        //circle object to delete the old square
+                        Circle deletionCircle = new Circle(MainForm.shapes[index].Colour, MainForm.shapes[index].End, MainForm.shapes[index].Radius);
+
+                        //deletet the old circle
+                        deletionCircle.Delete();
                         break;
 
                     case "Triangle":
-                        Triangle deletionTrianlge = new Triangle(MainForm.shapes[index].ShapeStart, MainForm.shapes[index].ShapeEnd, MainForm.shapes[index].ShapeColour);
-                        deletionTrianlge.DrawTriangle(g, deletePen);
+                        //triangle object to delete the old triangle
+                        Triangle deletionTrianlge = new Triangle(MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Colour);
+
+                        //delete the old triangle 
+                        deletionTrianlge.Draw(g, deletePen);
                         break;
                 }
 
@@ -212,9 +229,6 @@ namespace GrafPack
 
                 //remove the shape from the list
                 MainForm.shapes.RemoveAt(index);
-
-                //change the selected shape indication to none
-                shapeInfobx.Text = "No shape selected";
 
                 //set the index to -1 (no shape selected)
                 index = -1;
@@ -240,7 +254,10 @@ namespace GrafPack
                 //if a shape is selected, open the form to move it 
                 if (MainForm.ShapeSelected == true)
                 {
+                    //create an object of the shape movement fornm
                     ShapeMovementForm shapeMovementForm = new ShapeMovementForm();
+
+                    //open the shape movement form
                     shapeMovementForm.Show();
                 }
                 else
@@ -257,6 +274,10 @@ namespace GrafPack
                         MessageBox.Show("Select a shape to transform.");
                     }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Select a shape to transform.");
             }
         }
     }

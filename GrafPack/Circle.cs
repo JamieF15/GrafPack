@@ -7,38 +7,51 @@ namespace GrafPack
 {
     class Circle : Shape
     {
-       // public int Radius { get; set; }
-
-        public Circle(Color _shapeColor, Point shapeCentre, int _radius)
+        /// <summary>
+        /// Circle contructor
+        /// </summary>
+        /// <param name="_shapeColor">The colour of the shape</param>
+        /// <param name="shapeCentre">The centre of the shape</param>
+        /// <param name="_radius">The radius of the shape</param>
+        public Circle(Color _shapeColor, Point shapeCentre, Point _end, int _radius)
         {
-            ShapeColour = _shapeColor;
-            ShapeEnd = shapeCentre;
+            Colour = _shapeColor;
+            Start = shapeCentre;
+            End = _end;
             Radius = _radius;
-            ShapeType = "Circle";
+            Type = "Circle";
         }
 
+        #region Methods
         /// <summary>
         /// Places a pixels on the screen 
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="c"></param>
-        void PlacePixel(int x, int y, Color c)
+        /// <param name="x">x coodinate of the pixel</param>
+        /// <param name="y">y coordinate of the pixel</param>
+        /// <param name="c">colour of the pixel</param>
+        private void PlacePixel(int x, int y, Color c)
         {
+            //draw to the drawing region
             using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
+
+            //bitmap to contain the pixel
             Bitmap bm = new Bitmap(1, 1);
+
+            //draw the pixel to the bitmap
             bm.SetPixel(0, 0, c);
+
+            //draw the pixel to the drawing region
             g.DrawImageUnscaled(bm, x, y);
         }
 
         /// <summary>
         /// Creates a circle by placing pixels on the screen
         /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        void SetCirclePixels(int start, int end, int x, int y)
+        /// <param name="start">The start point for drawing</param>
+        /// <param name="end">The end point for drawing</param>
+        /// <param name="x">The x coodinate</param>
+        /// <param name="y">The y coodinate</param>
+        private void SetCirclePixels(int start, int end, int x, int y)
         {
             PlacePixel(start + x, end + y, ShapeCreationForm.chosenColour);
             PlacePixel(start - x, end + y, ShapeCreationForm.chosenColour);
@@ -53,11 +66,11 @@ namespace GrafPack
         /// <summary>
         /// Highlights the circle by removing opposing segments
         /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="shapeColour"></param>
+        /// <param name="start">The start point for drawing</param>
+        /// <param name="end">The end point for drawing</param>
+        /// <param name="x">The x coodinate</param>
+        /// <param name="y">The y coodinate</param>
+        /// <param name="shapeColour">The colour of the shape</param>
         public void SetCircleHighlightPixels(int start, int end, int x, int y, Color shapeColour)
         {
             PlacePixel(start + x, end + y, MainForm.Canvas.BackColor);
@@ -71,12 +84,12 @@ namespace GrafPack
         }
 
         /// <summary>
-        /// Deletes a circle by drawing a circle over it 
+        /// Deletes a circle by drawing a circle over it at the same position
         /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="start">The start point for drawing</param>
+        /// <param name="end">The end point for drawing</param>
+        /// <param name="x">The x coodinate</param>
+        /// <param name="y">The y coodinate</param>
         public void DeleteCirclePixels(int start, int end, int x, int y)
         {
             PlacePixel(start + x, end + y, MainForm.Canvas.BackColor);
@@ -90,102 +103,129 @@ namespace GrafPack
         }
 
         /// <summary>
-        /// 
+        /// Draws a circle to the canvas on a mouse click using Brasenhams circle drawing algorithm
         /// </summary>
-        public void DrawCircle()
+        /// code refrenced form: https://www.geeksforgeeks.org/bresenhams-circle-drawing-algorithm/
+        public void Draw()
         {
+            //the x coordinate of the pixel to draw
             int x = 0;
+
+            //the y coordinate of the pixel to draw
             int y = Radius;
+
+            //the diameter of the cirle 
             int d = 3 - 2 * Radius;
 
+            //loop until the is smaller than x
             while (y >= x)
             {
-                // for each pixel we will
-                // draw all eight pixels
+                //increment x
                 x++;
 
-                // check for decision parameter
-                // and correspondingly 
-                // update d, x, y
+                //check that the diameter is greater than 0
                 if (d > 0)
                 {
+                    //decrement y
                     y--;
+
+                    //set hte diameter
                     d = d + 4 * (x - y) + 10;
                 }
+                //if the diameter is less than 0
                 else
                 {
+                    //set the diamter appropriatly
                     d = d + 4 * x + 6;
                 }
 
-                SetCirclePixels(ShapeEnd.X, ShapeEnd.Y, x, y);
+                //draw the pixels to the drawing region
+                SetCirclePixels(End.X, End.Y, x, y);
             }
         }
 
         /// <summary>
         /// Highlights the circle to show it is selected
         /// </summary>
-        /// <param name="shapeColour"></param>
-        public void HighlightCircle(Color shapeColour)
+        /// <param name="shapeColour">The colour of the shape</param>
+        public void Highlight(Color shapeColour)
         {
+            //the x coordinate of the pixel to draw
             int x = 0;
+
+            //the y coordinate of the pixel to draw
             int y = Radius;
+
+            //the diameter of the cirle 
             int d = 3 - 2 * Radius;
 
+            //loop until the is smaller than x
             while (y >= x)
             {
-                // for each pixel we will
-                // draw all eight pixels
-
+                //increment x
                 x++;
 
-                // check for decision parameter
-                // and correspondingly 
-                // update d, x, y
+                //check that the diameter is greater than 0
                 if (d > 0)
                 {
+                    //decrement y
                     y--;
+
+                    //set hte diameter
                     d = d + 4 * (x - y) + 10;
                 }
+                //if the diameter is less than 0
                 else
                 {
+                    //set the diamter appropriatly
                     d = d + 4 * x + 6;
                 }
 
-                SetCircleHighlightPixels(ShapeEnd.X, ShapeEnd.Y, x, y, shapeColour);
+                //draw pixels to the drawing region to highlight the circle
+                SetCircleHighlightPixels(End.X, End.Y, x, y, shapeColour);
             }
         }
 
         /// <summary>
         /// Replaces the circle with a circle the same size but the colour of the canvas
         /// </summary>
-        public void DeleteCircle()
+        public void Delete()
         {
+            //the x coordinate of the pixel to draw
             int x = 0;
+
+            //the y coordinate of the pixel to draw
             int y = Radius;
+
+            //the diameter of the cirle 
             int d = 3 - 2 * Radius;
 
+            //loop until the is smaller than x
             while (y >= x)
             {
-                // for each pixel we will
-                // draw all eight pixels
-
+                //increment x
                 x++;
 
-                // check for decision parameter
-                // and correspondingly 
-                // update d, x, y
+                //check that the diameter is greater than 0
                 if (d > 0)
                 {
+                    //decrement y
                     y--;
+
+                    //set hte diameter
                     d = d + 4 * (x - y) + 10;
                 }
+                //if the diameter is less than 0
                 else
                 {
+                    //set the diamter appropriatly
                     d = d + 4 * x + 6;
                 }
 
-                DeleteCirclePixels(ShapeEnd.X, ShapeEnd.Y, x, y);
+                //delete the circle in the designated position
+                DeleteCirclePixels(End.X, End.Y, x, y);
             }
         }
+        #endregion
     }
 }

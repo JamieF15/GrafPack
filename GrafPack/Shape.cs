@@ -7,25 +7,21 @@ namespace GrafPack
 {
     public abstract class Shape
     {
-        //represents the colour of hte shape
-        public Color ShapeColour { get; set; }
-        public string ShapeType { get; set; }
-        public Point ShapeStart { get; set; }
-        public Point ShapeEnd { get; set; }
+        #region Attributes
+        //the colour of hte shape
+        public Color Colour { get; set; }
+
+        //the type of the shape e.g. circle, triangle
+        public string Type { get; set; }
+
+        //the start point of the shape
+        public Point Start { get; set; }
+
+        //the end point of the shape
+        public Point End { get; set; }
+
+        //the radius of a circle (it is here because it needs to be accessed from within a list that shapes, not circles)
         public int Radius { get; set; }
-        public Point Centre { get; set; }
-
-
-        public Point CalculateCentre()
-        {
-            switch (ShapeType)
-            {
-                case "Square":
-                    Centre = new Point((ShapeStart.X + ShapeEnd.X) / 2, (ShapeStart.Y + ShapeEnd.Y));
-                    break;
-            }
-
-            return Centre;
-        }
+        #endregion
     }
 }
