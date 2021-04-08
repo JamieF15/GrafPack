@@ -39,23 +39,43 @@ namespace GrafPack
         /// </summary>
         void CreateCanvas()
         {
+            //create a new double buffered panel
             Canvas = new DoubleBufferedPanel();
-            Canvas.BackColor = Color.White;
-            Canvas.Location = new Point(2, 60);
-            Canvas.Size = new Size(this.Width, this.Height);
+
+            //set the back colour to the back colour of the form
+            Canvas.BackColor = this.BackColor;
+
+            //offset it to position it correctly
+            Canvas.Location = new Point(Convert.ToInt32( 1.5), 60);
+
+            // set the size of it to the size of the frame
+            Canvas.Size = this.Size;
+
+            //add the canvas to the frame
             this.Controls.Add(Canvas);
+
+            //set the border style
             Canvas.BorderStyle = BorderStyle.FixedSingle;
+
+            //create a bitmap to to store drawings
             drawingRegion = new Bitmap(Canvas.Width, Canvas.Height);
+
+            //create a buffer bitmap to store each shape when it is created
             allShapes = new Bitmap(Canvas.Width, Canvas.Height);
 
+            //mouse down event for the canvas
             Canvas.MouseDown += new MouseEventHandler(this.CanvasMouseDown);
+
+            //mouse up event for the canvas
             Canvas.MouseUp += new MouseEventHandler(this.CanvasMouseUp);
+
+            //mouse move event for the canvas
             Canvas.MouseMove += new MouseEventHandler(this.CanvasMouseMove);
         }
 
         /// <summary>
         /// <param name="sender"></
-        /// click event for the exit button
+        /// Creates an instance of the exit form to allow the user to exit
         /// </summary>param>
         /// <param name="e"></param>
         private void ExitButton_Click(object sender, EventArgs e)
@@ -82,8 +102,10 @@ namespace GrafPack
         /// <param name="e"></param>
         private void CanvasMouseDown(object sender, MouseEventArgs e)
         {
+            //check if the left mouse button has been clicked
             if (e.Button == MouseButtons.Left)
             {
+                //set the global start point to hte postion of the mouse
                 startPoint = new Point(e.X, e.Y);
             }
         }
@@ -95,6 +117,7 @@ namespace GrafPack
         /// <param name="e"></param>
         private void CanvasMouseUp(object sender, MouseEventArgs e)
         {
+            //draw to the drawing region
             using Graphics g = Graphics.FromImage(drawingRegion);
 
             //set the end point to the position of the mouse
@@ -103,30 +126,29 @@ namespace GrafPack
             //create a pen to create the square
             mainPen = new Pen(ShapeCreationForm.chosenColour, PenSize);
 
+            //check if the left mouse button has been clicked and CreateSquare is true
             if (e.Button == MouseButtons.Left && CreateSquare == true)
             {
                 //create a square object
                 Square s = new Square(startPoint, endPoint, mainPen.Color);
-                //draw the square
-                s.DrawSqaure(g, mainPen);
-                //dispose of the pen object
-                mainPen.Dispose();
+
                 //set the CreateSquare flag to false
                 CreateSquare = false;
+
                 //add the square to the list of shapes
                 shapes.Add(s);
             }
+            //check if the left mouse button has been clicked and CreateCircle is true
             else if (e.Button == MouseButtons.Left && CreateCircle == true)
             {
-                Circle c = new Circle(mainPen.Color, endPoint, 100);
-                c.DrawCircle();
+                //create a circle object
+                Circle c = new Circle(mainPen.Color, startPoint, endPoint, GetPointDistance(startPoint.X, endPoint.Y, endPoint.X, startPoint.Y ));
                 CreateCircle = false;
                 shapes.Add(c);
             }
             else if (e.Button == MouseButtons.Left && CreateTriangle == true)
             {
                 Triangle t = new Triangle(startPoint, endPoint, mainPen.Color);
-                t.DrawTriangle(g, mainPen);
                 CreateTriangle = false;
                 shapes.Add(t);
             }
@@ -166,6 +188,19 @@ namespace GrafPack
                 s.DrawSqaure(g, mainPen);
 
             }
+            else if (e.Button == MouseButtons.Left && CreateCircle == true)
+            {
+                endPoint = new Point(e.X, e.Y);
+
+                Circle c = new Circle(mainPen.Color, startPoint, endPoint, (int)GetPointDistance(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y));
+
+                //reset the drawing region
+                ResetDrawingRegion();
+
+                //draw the circle
+                c.Draw();
+
+            }
             else if (e.Button == MouseButtons.Left && CreateTriangle == true)
             {
                 //set the endPoint to the positon of the mouse
@@ -178,11 +213,16 @@ namespace GrafPack
                 ResetDrawingRegion();
 
                 //draw the square to the canvas
-                t.DrawTriangle(g, mainPen);
+                t.Draw(g, mainPen);
             }
 
             //set the background of the canvas to the drawing region
             Canvas.BackgroundImage = drawingRegion;
+        }
+
+        private static int GetPointDistance(double startX, double endY, double endX, double startY)
+        {
+            return (int)Math.Sqrt(Math.Pow((endX - startX), 2) + Math.Pow((startY - endY), 2));
         }
 
         /// <summary>
@@ -201,6 +241,13 @@ namespace GrafPack
         {
             ShapeSelectionForm shapeSelectionForm = new ShapeSelectionForm();
             shapeSelectionForm.Show();
+        }
+
+        public static void ApplyDrawingChange()
+        {
+            MainForm.Canvas.BackgroundImage = MainForm.drawingRegion;
+            MainForm.allShapes = (Bitmap)MainForm.drawingRegion.Clone();
+            MainForm.ResetDrawingRegion();
         }
         #endregion
     }

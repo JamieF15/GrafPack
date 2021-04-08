@@ -77,6 +77,7 @@ namespace GrafPack
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ExitPopUpForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Exit Application";
             this.ResumeLayout(false);
             this.PerformLayout();

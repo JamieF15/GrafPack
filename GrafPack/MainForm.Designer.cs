@@ -39,7 +39,7 @@ namespace GrafPack
             // SelectButton
             // 
             this.SelectButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.SelectButton.Location = new System.Drawing.Point(244, 8);
+            this.SelectButton.Location = new System.Drawing.Point(253, 8);
             this.SelectButton.Name = "SelectButton";
             this.SelectButton.Size = new System.Drawing.Size(180, 32);
             this.SelectButton.TabIndex = 1;
@@ -51,7 +51,7 @@ namespace GrafPack
             // 
             this.ExitButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ExitButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ExitButton.Location = new System.Drawing.Point(477, 8);
+            this.ExitButton.Location = new System.Drawing.Point(478, 8);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(180, 32);
             this.ExitButton.TabIndex = 4;
@@ -62,7 +62,7 @@ namespace GrafPack
             // CreateButton
             // 
             this.CreateButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.CreateButton.Location = new System.Drawing.Point(12, 8);
+            this.CreateButton.Location = new System.Drawing.Point(18, 8);
             this.CreateButton.Name = "CreateButton";
             this.CreateButton.Size = new System.Drawing.Size(180, 32);
             this.CreateButton.TabIndex = 0;
@@ -75,9 +75,9 @@ namespace GrafPack
             this.panel1.Controls.Add(this.CreateButton);
             this.panel1.Controls.Add(this.ExitButton);
             this.panel1.Controls.Add(this.SelectButton);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(-1, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(669, 48);
+            this.panel1.Size = new System.Drawing.Size(681, 48);
             this.panel1.TabIndex = 5;
             // 
             // MainForm
@@ -99,6 +99,7 @@ namespace GrafPack
         }
 
         #endregion
+
         private System.Windows.Forms.Button SelectButton;
         private System.Windows.Forms.Button ExitButton;
         private System.Windows.Forms.Button CreateButton;
