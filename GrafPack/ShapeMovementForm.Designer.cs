@@ -38,6 +38,7 @@ namespace GrafPack
             this.txtRotateShape = new System.Windows.Forms.TextBox();
             this.btnRotateRight = new System.Windows.Forms.Button();
             this.btnRotateLeft = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnUp
@@ -122,12 +123,23 @@ namespace GrafPack
             this.btnRotateLeft.UseVisualStyleBackColor = true;
             this.btnRotateLeft.Click += new System.EventHandler(this.btnRotateLeft_Click);
             // 
+            // btnExit
+            // 
+            this.btnExit.Location = new System.Drawing.Point(118, 193);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(136, 23);
+            this.btnExit.TabIndex = 12;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
             // ShapeMovementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(343, 190);
+            this.ClientSize = new System.Drawing.Size(343, 228);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnRotateLeft);
             this.Controls.Add(this.btnRotateRight);
             this.Controls.Add(this.txtRotateShape);
@@ -136,7 +148,9 @@ namespace GrafPack
             this.Controls.Add(this.btnLeft);
             this.Controls.Add(this.btnRight);
             this.Controls.Add(this.btnUp);
+            this.MaximizeBox = false;
             this.Name = "ShapeMovementForm";
+            this.ShowIcon = false;
             this.Text = "Tranform Shape";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ShapeMovementForm_FormClosed);
             this.Load += new System.EventHandler(this.ShapeMovementForm_Load);
@@ -155,5 +169,6 @@ namespace GrafPack
         private System.Windows.Forms.TextBox txtRotateShape;
         private System.Windows.Forms.Button btnRotateRight;
         private System.Windows.Forms.Button btnRotateLeft;
+        private System.Windows.Forms.Button btnExit;
     }
 }

@@ -46,15 +46,15 @@ namespace GrafPack
         /// <summary>
         /// Rotates a point around another point by a certain angle
         /// </summary>
-        /// <param name="pointToRotate"></param>
-        /// <param name="centerPoint"></param>
-        /// <param name="angleInDegrees"></param>
+        /// <param name="pointToRotate">The point of a shape that is being rotated</param>
+        /// <param name="centerPoint">the middle of the shape</param>
+        /// <param name="angleInDegrees">The angle to rotate by</param>
         /// <returns></returns>
         //code refrenced form: https://stackoverflow.com/questions/13695317/rotate-a-point-around-another-point
-        public Point RotatePoint(Point pointToRotate, Point centerPoint, double angleInDegrees)
+        public Point RotatePoint(Point pointToRotate, Point centerPoint)
         {
             //convert the angle in radians
-            double angleInRadians = angleInDegrees * (Math.PI / 180);
+            double angleInRadians = rotationIncrement * (Math.PI / 180);
 
             //calculate the cosine of the angle
             double cosTheta = Math.Cos(angleInRadians);
@@ -99,12 +99,12 @@ namespace GrafPack
             //if the direction is left, set the rotation increment to minus 10
             if (direction == "left")
             {
-                rotationIncrement = -1;
+                rotationIncrement = -5;
             }
             //if the direction is right, set the rotation increment to 10
             else if (direction == "right")
             {
-                rotationIncrement = 1;
+                rotationIncrement = 5;
             }
         }
 
@@ -133,11 +133,12 @@ namespace GrafPack
                     case "Triangle":
                         RotateTriangle(g);
                         break;
+
+                    case "Circle":
+                        MessageBox.Show("Circles cannot be rotated.");
+                        break;
                 }
             }
-
-            //apply the drawing change
-            MainForm.ApplyDrawingChange();
         }
 
         /// <summary>
@@ -152,8 +153,8 @@ namespace GrafPack
                                           MainForm.shapes[ShapeSelectionForm.index].Colour);
 
             //square object with rotated points 
-            Square rotatedSquare = new Square(RotatePoint(MainForm.shapes[ShapeSelectionForm.index].Start, ShapeCenter, rotationIncrement),
-                                              RotatePoint(MainForm.shapes[ShapeSelectionForm.index].End, ShapeCenter, rotationIncrement),
+            Square rotatedSquare = new Square(RotatePoint(MainForm.shapes[ShapeSelectionForm.index].Start, ShapeCenter),
+                                              RotatePoint(MainForm.shapes[ShapeSelectionForm.index].End, ShapeCenter),
                                                           MainForm.shapes[ShapeSelectionForm.index].Colour);
 
             //delete the old square
@@ -170,6 +171,8 @@ namespace GrafPack
 
             //highlight the newly rotated square
             rotatedSquare.DrawSqaure(g, CreateHighlightPen());
+
+            MainForm.ApplyDrawingChange();
         }
 
         /// <summary>
@@ -184,8 +187,8 @@ namespace GrafPack
                                                 MainForm.shapes[ShapeSelectionForm.index].Colour);
 
             //triangle with rotated points
-            Triangle rotatedTriangle = new Triangle(RotatePoint(MainForm.shapes[ShapeSelectionForm.index].Start, ShapeCenter, rotationIncrement),
-                                                    RotatePoint(MainForm.shapes[ShapeSelectionForm.index].End, ShapeCenter, rotationIncrement),
+            Triangle rotatedTriangle = new Triangle(RotatePoint(MainForm.shapes[ShapeSelectionForm.index].Start, ShapeCenter),
+                                                    RotatePoint(MainForm.shapes[ShapeSelectionForm.index].End, ShapeCenter),
                                                     MainForm.shapes[ShapeSelectionForm.index].Colour);
 
             //delete the old triangle
@@ -202,6 +205,8 @@ namespace GrafPack
 
             //draw the rotated triangle
             rotatedTriangle.Draw(g, CreateHighlightPen());
+
+            MainForm.ApplyDrawingChange();
         }
 
         #region Movement Buttons
@@ -300,6 +305,11 @@ namespace GrafPack
             }
         }
 
+        /// <summary>
+        /// Moves a shape down
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDown_Click(object sender, EventArgs e)
         {
             using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
@@ -368,6 +378,7 @@ namespace GrafPack
                 //if the index is not equal to the index of the selected shape, up date it
                 if (ShapeSelectionForm.index != i)
                 {
+                    //update all shapes that are not the selected shape
                     UpdateShape(g, MainForm.shapes[i]);
                 }
             }
@@ -392,8 +403,11 @@ namespace GrafPack
                         break;
 
                     case "Circle":
+
+
                         Circle nonSelectedCircle = new Circle(shape.Colour, shape.Start, shape.End, shape.Radius);
                         nonSelectedCircle.Draw();
+
                         break;
 
                     case "Triangle":
@@ -754,32 +768,33 @@ namespace GrafPack
                 {
                     //update the shape
                     UpdateShape(g, MainForm.shapes[i]);
-
-                    //switch (MainForm.shapes[i].Type)
-                    //{
-                    //    case "Square":
-                    //        UpdateShape(g, (Square)MainForm.shapes[i]);
-                    //        break;
-
-                    //    case "Circle":
-                    //        UpdateShape(g, (Circle)MainForm.shapes[i]);
-                    //        break;
-
-                    //    case "Triangle":
-                    //        UpdateShape(g, (Triangle)MainForm.shapes[i]);
-                    //        break;
-                    //}
                 }
             }
             //reset the shape selection
             ShapeSelectionForm.index = -1;
 
+            //set the isOpen bool to false to show that is it closed
             isOpen = false;
         }
 
+        /// <summary>
+        /// When hte form loads, set the bool that states if it is open to true to prevent more than one shape to be moved at a time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShapeMovementForm_Load(object sender, EventArgs e)
         {
             isOpen = true;
+        }
+
+        /// <summary>
+        /// Exits the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

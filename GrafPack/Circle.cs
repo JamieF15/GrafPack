@@ -25,6 +25,19 @@ namespace GrafPack
         #region Methods
 
         /// <summary>
+        /// Gets the distance between two poitns
+        /// </summary>
+        /// <param name="startX"></param>
+        /// <param name="endY"></param>
+        /// <param name="endX"></param>
+        /// <param name="startY"></param>
+        /// <returns></returns>
+        public static int CalculateSize(double startX, double endY, double endX, double startY)
+        {
+            return (int)Math.Sqrt(Math.Pow((endX - startX), 2) + Math.Pow((startY - endY), 2));
+        }
+
+        /// <summary>
         /// Places a pixels on the screen 
         /// </summary>
         /// <param name="x">x coodinate of the pixel</param>

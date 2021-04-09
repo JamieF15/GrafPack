@@ -8,6 +8,7 @@ namespace GrafPack
     {
         //represents the element of the shape array
         public static int index = -1;
+        public static bool isOpen = false;
 
         public ShapeSelectionForm()
         {
@@ -96,6 +97,7 @@ namespace GrafPack
         {
             //set ShapeSelected to false (maybe delete variable)
             MainForm.ShapeSelected = false;
+            isOpen = true;
         }
 
         /// <summary>

@@ -46,7 +46,7 @@ namespace GrafPack
             Canvas.BackColor = this.BackColor;
 
             //offset it to position it correctly
-            Canvas.Location = new Point(Convert.ToInt32( 1.5), 60);
+            Canvas.Location = new Point(2, 63);
 
             // set the size of it to the size of the frame
             Canvas.Size = this.Size;
@@ -142,7 +142,7 @@ namespace GrafPack
             else if (e.Button == MouseButtons.Left && CreateCircle == true)
             {
                 //create a circle object
-                Circle c = new Circle(mainPen.Color, startPoint, endPoint, GetPointDistance(startPoint.X, endPoint.Y, endPoint.X, startPoint.Y ));
+                Circle c = new Circle(mainPen.Color, startPoint, endPoint, Circle.CalculateSize(startPoint.X, endPoint.Y, endPoint.X, startPoint.Y));
                 CreateCircle = false;
                 shapes.Add(c);
             }
@@ -192,7 +192,7 @@ namespace GrafPack
             {
                 endPoint = new Point(e.X, e.Y);
 
-                Circle c = new Circle(mainPen.Color, startPoint, endPoint, (int)GetPointDistance(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y));
+                Circle c = new Circle(mainPen.Color, startPoint, endPoint, Circle.CalculateSize(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y));
 
                 //reset the drawing region
                 ResetDrawingRegion();
@@ -218,11 +218,6 @@ namespace GrafPack
 
             //set the background of the canvas to the drawing region
             Canvas.BackgroundImage = drawingRegion;
-        }
-
-        private static int GetPointDistance(double startX, double endY, double endX, double startY)
-        {
-            return (int)Math.Sqrt(Math.Pow((endX - startX), 2) + Math.Pow((startY - endY), 2));
         }
 
         /// <summary>
