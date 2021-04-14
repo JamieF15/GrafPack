@@ -25,16 +25,16 @@ namespace GrafPack
         #region Methods
 
         /// <summary>
-        /// Gets the distance between two poitns
+        /// Gets the distance between two points for circle radius
         /// </summary>
-        /// <param name="startX"></param>
-        /// <param name="endY"></param>
-        /// <param name="endX"></param>
-        /// <param name="startY"></param>
+        /// <param name="startX">Start point x</param>
+        /// <param name="endY">End point y</param>
+        /// <param name="endX">End point x</param>
+        /// <param name="startY">Start point y</param>
         /// <returns></returns>
         public static int CalculateSize(double startX, double endY, double endX, double startY)
         {
-            return (int)Math.Sqrt(Math.Pow((endX - startX), 2) + Math.Pow((startY - endY), 2));
+            return (int)Math.Sqrt(Math.Pow(endX - startX, 2) + Math.Pow(startY - endY, 2));
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace GrafPack
         /// <param name="end">The end point for drawing</param>
         /// <param name="x">The x coodinate</param>
         /// <param name="y">The y coodinate</param>
-        private void SetCirclePixels(int start, int end, int x, int y)
+        private void DrawCirclePixels(int start, int end, int x, int y)
         {
             PlacePixel(start + x, end + y, Colour);
             PlacePixel(start - x, end + y, Colour);
@@ -85,7 +85,7 @@ namespace GrafPack
         /// <param name="x">The x coodinate</param>
         /// <param name="y">The y coodinate</param>
         /// <param name="shapeColour">The colour of the shape</param>
-        public void SetCircleHighlightPixels(int start, int end, int x, int y, Color shapeColour)
+        public void HighlightCirclePixels(int start, int end, int x, int y, Color shapeColour)
         {
             PlacePixel(start + x, end + y, MainForm.Canvas.BackColor);
             PlacePixel(start - x, end + y, shapeColour);
@@ -154,7 +154,7 @@ namespace GrafPack
                 }
 
                 //draw the pixels to the drawing region
-                SetCirclePixels(End.X, End.Y, x, y);
+                DrawCirclePixels(End.X, End.Y, x, y);
             }
         }
 
@@ -196,7 +196,7 @@ namespace GrafPack
                 }
 
                 //draw pixels to the drawing region to highlight the circle
-                SetCircleHighlightPixels(End.X, End.Y, x, y, shapeColour);
+                HighlightCirclePixels(End.X, End.Y, x, y, shapeColour);
             }
         }
 

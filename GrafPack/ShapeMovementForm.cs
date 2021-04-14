@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Text;
 using System.Windows.Forms;
 
 namespace GrafPack
@@ -65,8 +60,8 @@ namespace GrafPack
             //return the rotated point
             return new Point
             {
-                X = (int)(cosTheta * (pointToRotate.X - centerPoint.X) - sinTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.X),
-                Y = (int)(sinTheta * (pointToRotate.X - centerPoint.X) + cosTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.Y)
+                X = Convert.ToInt32(Math.Cos(angleInRadians) * (pointToRotate.X - centerPoint.X) - Math.Sin(angleInRadians) * (pointToRotate.Y - centerPoint.Y) + centerPoint.X),
+                Y = Convert.ToInt32(Math.Sin(angleInRadians) * (pointToRotate.X - centerPoint.X) + Math.Cos(angleInRadians) * (pointToRotate.Y - centerPoint.Y) + centerPoint.Y)
             };
         }
 
@@ -108,6 +103,21 @@ namespace GrafPack
             }
         }
 
+        private void PlacePixel(int x, int y, Color c)
+        {
+            //draw to the drawing region
+            using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
+
+            //bitmap to contain the pixel
+            Bitmap bm = new Bitmap(1, 1);
+
+            //draw the pixel to the bitmap
+            bm.SetPixel(0, 0, c);
+
+            //draw the pixel to the drawing region
+            g.DrawImageUnscaled(bm, x, y);
+        }
+
         /// <summary>
         /// Rotates the shape in the selected direction
         /// </summary>
@@ -128,10 +138,12 @@ namespace GrafPack
                 {
                     case "Square":
                         RotateSquare(g);
+                        PlacePixel(ShapeCenter.X, ShapeCenter.Y, Color.Black);
                         break;
 
                     case "Triangle":
                         RotateTriangle(g);
+                        PlacePixel(ShapeCenter.X, ShapeCenter.Y, Color.Black);
                         break;
 
                     case "Circle":
@@ -403,11 +415,8 @@ namespace GrafPack
                         break;
 
                     case "Circle":
-
-
                         Circle nonSelectedCircle = new Circle(shape.Colour, shape.Start, shape.End, shape.Radius);
                         nonSelectedCircle.Draw();
-
                         break;
 
                     case "Triangle":

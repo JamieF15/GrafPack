@@ -195,54 +195,63 @@ namespace GrafPack
             //used to remove a shape from the canvas
             Pen deletePen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize);
 
-            //if the shape list isn't empty and the index is not 1
-            if (MainForm.shapes.Count > 0 && index != -1)
+            if (index != -1)
             {
-                //switch statement on the shape type
-                switch (MainForm.shapes[index].Type)
+
+
+                //if the shape list isn't empty and the index is not 1
+                if (MainForm.shapes.Count > 0 && index != -1)
                 {
-                    case "Square":
-                        //square object to delete the old sqaure
-                        Square deletetionSquare = new Square(MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Colour);
-                        
-                        //draw the new square over the old square
-                        deletetionSquare.DrawSqaure(g, deletePen);
-                        break;
+                    //switch statement on the shape type
+                    switch (MainForm.shapes[index].Type)
+                    {
+                        case "Square":
+                            //square object to delete the old sqaure
+                            Square deletetionSquare = new Square(MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Colour);
 
-                    case "Circle":
-                        //circle object to delete the old square
-                        Circle deletionCircle = new Circle(MainForm.shapes[index].Colour, MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Radius);
+                            //draw the new square over the old square
+                            deletetionSquare.DrawSqaure(g, deletePen);
+                            break;
 
-                        //deletet the old circle
-                        deletionCircle.Delete();
-                        break;
+                        case "Circle":
+                            //circle object to delete the old square
+                            Circle deletionCircle = new Circle(MainForm.shapes[index].Colour, MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Radius);
 
-                    case "Triangle":
-                        //triangle object to delete the old triangle
-                        Triangle deletionTrianlge = new Triangle(MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Colour);
+                            //deletet the old circle
+                            deletionCircle.Delete();
+                            break;
 
-                        //delete the old triangle 
-                        deletionTrianlge.Draw(g, deletePen);
-                        break;
+                        case "Triangle":
+                            //triangle object to delete the old triangle
+                            Triangle deletionTrianlge = new Triangle(MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Colour);
+
+                            //delete the old triangle 
+                            deletionTrianlge.Draw(g, deletePen);
+                            break;
+                    }
+
+                    ShapeMovementForm.RepairAllOtherShapes();
+
+                    //stops the shapes from re-appearing when the canvas is refreshed
+                    MainForm.allShapes = (Bitmap)MainForm.drawingRegion.Clone();
+
+                    //remove the shape from the list
+                    MainForm.shapes.RemoveAt(index);
+
+                    //set the index to -1 (no shape selected)
+                    index = -1;
+
+                    //reset the drawing region bitmap
+                    MainForm.ResetDrawingRegion();
                 }
 
-                ShapeMovementForm.RepairAllOtherShapes();
-
-                //stops the shapes from re-appearing when the canvas is refreshed
-                MainForm.allShapes = (Bitmap)MainForm.drawingRegion.Clone();
-
-                //remove the shape from the list
-                MainForm.shapes.RemoveAt(index);
-
-                //set the index to -1 (no shape selected)
-                index = -1;
-
-                //reset the drawing region bitmap
-                MainForm.ResetDrawingRegion();
+                //remove the delete pen from memory
+                deletePen.Dispose();
             }
-
-            //remove the delete pen from memory
-            deletePen.Dispose();
+            else
+            {
+                MessageBox.Show("Select a shape to delete.");
+            }
         }
 
         /// <summary>
@@ -285,6 +294,10 @@ namespace GrafPack
                 {
                     MessageBox.Show("Select a shape to transform.");
                 }
+            }
+            else
+            {
+                MessageBox.Show("Only one shape can be transformed at a time.");
             }
         }
     }
