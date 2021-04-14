@@ -71,8 +71,8 @@ namespace GrafPack
         /// <param name="square">The square to find the centre of</param>
         public static void CalculateSquareCenter(Square square)
         {
-            ShapeCenter.X = (square.End.X + square.Start.X) / 2;
-            ShapeCenter.Y = (square.End.Y + square.Start.Y) / 2;
+            ShapeCenter.X = (square.Start.X + square.End.X) / 2;
+            ShapeCenter.Y = (square.Start.Y + square.End.Y) / 2;
         }
 
         /// <summary>
@@ -103,21 +103,6 @@ namespace GrafPack
             }
         }
 
-        private void PlacePixel(int x, int y, Color c)
-        {
-            //draw to the drawing region
-            using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
-
-            //bitmap to contain the pixel
-            Bitmap bm = new Bitmap(1, 1);
-
-            //draw the pixel to the bitmap
-            bm.SetPixel(0, 0, c);
-
-            //draw the pixel to the drawing region
-            g.DrawImageUnscaled(bm, x, y);
-        }
-
         /// <summary>
         /// Rotates the shape in the selected direction
         /// </summary>
@@ -138,12 +123,10 @@ namespace GrafPack
                 {
                     case "Square":
                         RotateSquare(g);
-                        PlacePixel(ShapeCenter.X, ShapeCenter.Y, Color.Black);
                         break;
 
                     case "Triangle":
                         RotateTriangle(g);
-                        PlacePixel(ShapeCenter.X, ShapeCenter.Y, Color.Black);
                         break;
 
                     case "Circle":
