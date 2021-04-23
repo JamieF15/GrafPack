@@ -197,8 +197,6 @@ namespace GrafPack
 
             if (index != -1)
             {
-
-
                 //if the shape list isn't empty and the index is not 1
                 if (MainForm.shapes.Count > 0 && index != -1)
                 {

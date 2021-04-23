@@ -51,12 +51,6 @@ namespace GrafPack
             //convert the angle in radians
             double angleInRadians = rotationIncrement * (Math.PI / 180);
 
-            //calculate the cosine of the angle
-            double cosTheta = Math.Cos(angleInRadians);
-
-            //calculate the sine of the angle
-            double sinTheta = Math.Sin(angleInRadians);
-
             //return the rotated point
             return new Point
             {

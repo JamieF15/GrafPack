@@ -103,7 +103,6 @@ namespace GrafPack
             this.Name = "ShapeCreationForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ShapeCreationForm";
             this.ResumeLayout(false);
 
         }
