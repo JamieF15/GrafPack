@@ -185,7 +185,7 @@ namespace GrafPack
                 ResetDrawingRegion();
 
                 //draw the square to the canvas
-                s.DrawSqaure(g, mainPen);
+                s.DrawSqaure(mainPen);
 
             }
             else if (e.Button == MouseButtons.Left && CreateCircle == true)
@@ -213,7 +213,7 @@ namespace GrafPack
                 ResetDrawingRegion();
 
                 //draw the square to the canvas
-                t.Draw(g, mainPen);
+                t.DrawTriangle(mainPen);
             }
 
             //set the background of the canvas to the drawing region
@@ -232,12 +232,20 @@ namespace GrafPack
             g.DrawImage(allShapes, 0, 0);
         }
 
+        /// <summary>
+        /// When the select button is clicked, open the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectButton_Click(object sender, EventArgs e)
         {
             ShapeSelectionForm shapeSelectionForm = new ShapeSelectionForm();
             shapeSelectionForm.Show();
         }
 
+        /// <summary>
+        /// When a drawing is made to the canvas, this method updates it and places on the canvas
+        /// </summary>
         public static void ApplyDrawingChange()
         {
             MainForm.Canvas.BackgroundImage = MainForm.drawingRegion;

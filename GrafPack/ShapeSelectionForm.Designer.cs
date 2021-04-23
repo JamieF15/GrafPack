@@ -42,7 +42,7 @@ namespace GrafPack
             this.btnTowardsLastShape.Name = "btnTowardsLastShape";
             this.btnTowardsLastShape.Size = new System.Drawing.Size(127, 45);
             this.btnTowardsLastShape.TabIndex = 1;
-            this.btnTowardsLastShape.Text = "Select Towards Last Shape";
+            this.btnTowardsLastShape.Text = "Select Towards Next Shape";
             this.btnTowardsLastShape.UseVisualStyleBackColor = true;
             this.btnTowardsLastShape.Click += new System.EventHandler(this.Rightbtn_Click);
             // 
@@ -52,7 +52,7 @@ namespace GrafPack
             this.btnTowardsFirstShape.Name = "btnTowardsFirstShape";
             this.btnTowardsFirstShape.Size = new System.Drawing.Size(127, 45);
             this.btnTowardsFirstShape.TabIndex = 0;
-            this.btnTowardsFirstShape.Text = "Select Towards First Shape";
+            this.btnTowardsFirstShape.Text = "Select Towards Previous Shape";
             this.btnTowardsFirstShape.UseVisualStyleBackColor = true;
             this.btnTowardsFirstShape.Click += new System.EventHandler(this.Leftbtn_Click);
             // 

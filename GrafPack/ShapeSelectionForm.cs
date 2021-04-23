@@ -52,11 +52,11 @@ namespace GrafPack
                     switch (MainForm.shapes[index].Type)
                     {
                         case "Square":
-                            //shape object to replace the old square
+                            //square object to replace the old square
                             Square replacementSquare = new Square(MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Colour);
 
                             //draw the replacement square with the highlight pen
-                            replacementSquare.DrawSqaure(g, CreateHighlightPen());
+                            replacementSquare.HighlightSqaure(new Pen(replacementSquare.Colour));
 
                             //calculate the centre of the new square for rotation
                             ShapeMovementForm.CalculateSquareCenter(replacementSquare);
@@ -75,7 +75,7 @@ namespace GrafPack
                             Triangle replacementTriangle = new Triangle(MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Colour);
 
                             //draw the replacement triangle
-                            replacementTriangle.Draw(g, CreateHighlightPen());
+                            replacementTriangle.HighlightTriangle(new Pen(replacementTriangle.Colour));
 
                             //calculate the centre of the new triangle
                             ShapeMovementForm.CalculateTriangleCentre(replacementTriangle);
@@ -193,7 +193,7 @@ namespace GrafPack
             using Graphics g = Graphics.FromImage(MainForm.drawingRegion);
 
             //used to remove a shape from the canvas
-            Pen deletePen = new Pen(MainForm.Canvas.BackColor, MainForm.PenSize);
+            Pen deletePen = new Pen(MainForm.Canvas.BackColor);
 
             if (index != -1)
             {
@@ -208,7 +208,7 @@ namespace GrafPack
                             Square deletetionSquare = new Square(MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Colour);
 
                             //draw the new square over the old square
-                            deletetionSquare.DrawSqaure(g, deletePen);
+                            deletetionSquare.DrawSqaure(deletePen);
                             break;
 
                         case "Circle":
@@ -224,7 +224,7 @@ namespace GrafPack
                             Triangle deletionTrianlge = new Triangle(MainForm.shapes[index].Start, MainForm.shapes[index].End, MainForm.shapes[index].Colour);
 
                             //delete the old triangle 
-                            deletionTrianlge.Draw(g, deletePen);
+                            deletionTrianlge.DrawTriangle(deletePen);
                             break;
                     }
 
