@@ -40,7 +40,7 @@ namespace GrafPack
             this.YesButton.Location = new System.Drawing.Point(12, 69);
             this.YesButton.Name = "YesButton";
             this.YesButton.Size = new System.Drawing.Size(116, 32);
-            this.YesButton.TabIndex = 2;
+            this.YesButton.TabIndex = 1;
             this.YesButton.Text = "Yes";
             this.YesButton.UseVisualStyleBackColor = true;
             this.YesButton.Click += new System.EventHandler(this.YesButton_Click);
@@ -51,7 +51,7 @@ namespace GrafPack
             this.NoButton.Location = new System.Drawing.Point(184, 69);
             this.NoButton.Name = "NoButton";
             this.NoButton.Size = new System.Drawing.Size(116, 32);
-            this.NoButton.TabIndex = 3;
+            this.NoButton.TabIndex = 0;
             this.NoButton.Text = "No";
             this.NoButton.UseVisualStyleBackColor = true;
             this.NoButton.Click += new System.EventHandler(this.NoButton_Click);
@@ -70,6 +70,7 @@ namespace GrafPack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(312, 113);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.NoButton);
@@ -77,6 +78,8 @@ namespace GrafPack
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ExitPopUpForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Exit Application";
             this.ResumeLayout(false);

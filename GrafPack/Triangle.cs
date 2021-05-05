@@ -28,7 +28,7 @@ namespace GrafPack
         /// </summary>
         /// <param name="g">Graphics object</param>
         /// <param name="p">Pen object</param>
-        public void Draw(Graphics g, Pen p)
+        public void DrawTriangle(Pen p)
         {
             //the difference between the two points on the x axis
             float xDiff = Start.X - End.X;
@@ -45,17 +45,37 @@ namespace GrafPack
             //the third point of the triangle
             ThridPoint = new PointF(xMid + yDiff / 2, yMid - xDiff / 2);
 
-            //graphics path to stores the lines
-            GraphicsPath path = new GraphicsPath();
+            Line.DrawLine((int)Start.X, (int)Start.Y, (int)(xMid + yDiff / 2), (int)(yMid - xDiff / 2), p.Color);
+            Line.DrawLine((int)(xMid + yDiff / 2), (int)(yMid - xDiff / 2), (int)End.X, (int)End.Y, p.Color);
+            Line.DrawLine((int)Start.X, (int)Start.Y, End.X, End.Y, p.Color);
+        }
 
-            //add the lines to the path
-            path.AddLines(new PointF[] { Start, ThridPoint, End, });
+        //Code refreneced from: https://stackoverflow.com/questions/41294315/draw-an-equilateral-triangle-c-sharp
+        /// <summary>
+        /// Highlights a triangle to the canvas based on its position
+        /// </summary>
+        /// <param name="g">Graphics object</param>
+        /// <param name="p">Pen object</param>
+        public void HighlightTriangle(Pen p)
+        {
+            //the difference between the two points on the x axis
+            float xDiff = Start.X - End.X;
 
-            //close the path
-            path.CloseFigure();
+            //the difference between the two points on the y axis
+            float yDiff = Start.Y - End.Y;
 
-            //draw the triangle
-            g.DrawPath(p, path);
+            //the middle point of the two points on the x axis
+            float xMid = (Start.X + End.X) / 2;
+
+            //the middle point of the two points on the y axis
+            float yMid = (Start.Y + End.Y) / 2;
+
+            //the third point of the triangle
+            ThridPoint = new PointF(xMid + yDiff / 2, yMid - xDiff / 2);
+
+            Line.HighlightLine((int)Start.X, (int)Start.Y, (int)(xMid + yDiff / 2), (int)(yMid - xDiff / 2), p.Color);
+            Line.HighlightLine((int)(xMid + yDiff / 2), (int)(yMid - xDiff / 2), (int)End.X, (int)End.Y, p.Color);
+            Line.HighlightLine((int)Start.X, (int)Start.Y, End.X, End.Y, p.Color);
         }
     }
 }

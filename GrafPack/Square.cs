@@ -18,10 +18,11 @@ namespace GrafPack
 
         /// <summary>
         /// Draws a square to th canvas based on mouse clicks
+        /// Code refrenced from canvas
         /// </summary>
         /// <param name="g"></param>
         /// <param name="p"></param>
-        public void DrawSqaure(Graphics g, Pen p)
+        public void DrawSqaure(Pen p)
         {
             double diffX, diffY, xMid, yMid;
 
@@ -30,10 +31,25 @@ namespace GrafPack
             xMid = (Start.X + End.X) / 2;
             yMid = (Start.Y + End.Y) / 2;
 
-            g.DrawLine(p, (int)Start.X, (int)Start.Y, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2));
-            g.DrawLine(p, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2), (int)End.X, End.Y);
-            g.DrawLine(p, (int)End.X, (int)End.Y, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2));
-            g.DrawLine(p, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int)Start.X, (int)Start.Y);
+            Line.DrawLine((int)Start.X, (int)Start.Y, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2), p.Color);
+            Line.DrawLine((int)(xMid + diffY / 2), (int)(yMid - diffX / 2), (int)End.X, End.Y, p.Color);
+            Line.DrawLine((int)End.X, (int)End.Y, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), p.Color);
+            Line.DrawLine((int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int)Start.X, (int)Start.Y, p.Color);
+        }
+
+        public void HighlightSqaure(Pen p)
+        {
+            double diffX, diffY, xMid, yMid;
+
+            diffX = Start.X - End.X;
+            diffY = Start.Y - End.Y;
+            xMid = (Start.X + End.X) / 2;
+            yMid = (Start.Y + End.Y) / 2;
+
+            Line.HighlightLine((int)Start.X, (int)Start.Y, (int)(xMid + diffY / 2), (int)(yMid - diffX / 2), p.Color);
+            Line.HighlightLine((int)(xMid + diffY / 2), (int)(yMid - diffX / 2), (int)End.X, End.Y, p.Color);
+            Line.HighlightLine((int)End.X, (int)End.Y, (int)(xMid - diffY / 2), (int)(yMid + diffX / 2), p.Color);
+            Line.HighlightLine((int)(xMid - diffY / 2), (int)(yMid + diffX / 2), (int)Start.X, (int)Start.Y, p.Color);
         }
 
         #endregion

@@ -75,7 +75,7 @@ namespace GrafPack
             this.panel1.Controls.Add(this.CreateButton);
             this.panel1.Controls.Add(this.ExitButton);
             this.panel1.Controls.Add(this.SelectButton);
-            this.panel1.Location = new System.Drawing.Point(-1, 0);
+            this.panel1.Location = new System.Drawing.Point(7, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(681, 48);
             this.panel1.TabIndex = 5;
@@ -85,12 +85,13 @@ namespace GrafPack
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(669, 450);
+            this.ClientSize = new System.Drawing.Size(670, 450);
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Shape Maker 4000";
             this.panel1.ResumeLayout(false);

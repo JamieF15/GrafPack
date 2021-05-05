@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GrafPack
 {
@@ -23,6 +21,19 @@ namespace GrafPack
         }
 
         #region Methods
+
+        /// <summary>
+        /// Gets the distance between two points for circle radius
+        /// </summary>
+        /// <param name="startX">Start point x</param>
+        /// <param name="endY">End point y</param>
+        /// <param name="endX">End point x</param>
+        /// <param name="startY">Start point y</param>
+        /// <returns>The distance between the two points</returns>
+        public static int CalculateSize(double startX, double endY, double endX, double startY)
+        {
+            return (int)Math.Sqrt(Math.Pow(endX - startX, 2) + Math.Pow(startY - endY, 2));
+        }
 
         /// <summary>
         /// Places a pixels on the screen 
@@ -52,7 +63,7 @@ namespace GrafPack
         /// <param name="end">The end point for drawing</param>
         /// <param name="x">The x coodinate</param>
         /// <param name="y">The y coodinate</param>
-        private void SetCirclePixels(int start, int end, int x, int y)
+        private void DrawCirclePixels(int start, int end, int x, int y)
         {
             PlacePixel(start + x, end + y, Colour);
             PlacePixel(start - x, end + y, Colour);
@@ -72,16 +83,29 @@ namespace GrafPack
         /// <param name="x">The x coodinate</param>
         /// <param name="y">The y coodinate</param>
         /// <param name="shapeColour">The colour of the shape</param>
-        public void SetCircleHighlightPixels(int start, int end, int x, int y, Color shapeColour)
+        /// <param name="pixelOrder">The order of the pixel to determine how to highlight the shape</param>
+
+        public void HighlightCirclePixels(int start, int end, int x, int y, Color shapeColour, int pixelOrder)
         {
-            PlacePixel(start + x, end + y, MainForm.Canvas.BackColor);
-            PlacePixel(start - x, end + y, shapeColour);
-            PlacePixel(start + x, end - y, shapeColour);
-            PlacePixel(start - x, end - y, MainForm.Canvas.BackColor);
-            PlacePixel(start + y, end + x, shapeColour);
-            PlacePixel(start - y, end + x, MainForm.Canvas.BackColor);
-            PlacePixel(start + y, end - x, MainForm.Canvas.BackColor);
-            PlacePixel(start - y, end - x, shapeColour);
+            Color color;
+
+            if (pixelOrder % 2 == 0)
+            {
+                color = shapeColour;
+            }
+            else
+            {
+                color = MainForm.Canvas.BackColor;
+            }
+
+            PlacePixel(start + x, end + y, color);
+            PlacePixel(start - x, end + y, color);
+            PlacePixel(start + x, end - y, color);
+            PlacePixel(start - x, end - y, color);
+            PlacePixel(start + y, end + x, color);
+            PlacePixel(start - y, end + x, color);
+            PlacePixel(start + y, end - x, color);
+            PlacePixel(start - y, end - x, color);
         }
 
         /// <summary>
@@ -141,7 +165,7 @@ namespace GrafPack
                 }
 
                 //draw the pixels to the drawing region
-                SetCirclePixels(End.X, End.Y, x, y);
+                DrawCirclePixels(End.X, End.Y, x, y);
             }
         }
 
@@ -151,6 +175,8 @@ namespace GrafPack
         /// <param name="shapeColour">The colour of the shape</param>
         public void Highlight(Color shapeColour)
         {
+            int pixelOrder = 0;
+
             //the x coordinate of the pixel to draw
             int x = 0;
 
@@ -183,7 +209,8 @@ namespace GrafPack
                 }
 
                 //draw pixels to the drawing region to highlight the circle
-                SetCircleHighlightPixels(End.X, End.Y, x, y, shapeColour);
+                HighlightCirclePixels(End.X, End.Y, x, y, shapeColour, pixelOrder);
+                pixelOrder++;
             }
         }
 
